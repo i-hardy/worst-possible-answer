@@ -5,12 +5,18 @@ class Game {
     this.players = [];
   }
   addDeck(deck) {
+    if (this.decks.some(currDeck => currDeck.code === deck.code)) {
+      throw new Error('Deck already added');
+    }
     this.decks.push(deck);
   }
   removeDeck(deckCode) {
     this.decks = this.decks.filter(deck => deck.code !== deckCode);
   }
   addPlayer(player) {
+    if (this.players.some(currPlayer => currPlayer.id === player.id)) {
+      throw new Error('Player already joined');
+    }
     this.players.push(player);
   }
   removePlayer(playerID) {

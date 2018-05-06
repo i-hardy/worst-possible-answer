@@ -29,6 +29,13 @@ describe('Game', () => {
       testGame.addDeck(deck);
       expect(testGame.decks).to.include(deck);
     });
+
+    it('throws an error if a deck with the same code as one it contains is passed', () => {
+      const deck = { code: 'deckDeck', calls: [], responses: [] };
+      testGame.addDeck(deck);
+      const copyDeck = { code: 'deckDeck' };
+      expect(() => testGame.addDeck(copyDeck)).to.throw(Error, 'Deck already added');
+    });
   });
 
   describe('#removeDeck', () => {
@@ -45,6 +52,13 @@ describe('Game', () => {
       const player = { id: 'jimbob' };
       testGame.addPlayer(player);
       expect(testGame.players).to.include(player);
+    });
+
+    it('throws an error if the passed player is already in the game', () => {
+      const player = { id: 'jimbob' };
+      testGame.addPlayer(player);
+      const player2 = { id: 'jimbob' };
+      expect(() => testGame.addPlayer(player2)).to.throw(Error, 'Player already joined');
     });
   });
 

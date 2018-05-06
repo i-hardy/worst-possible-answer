@@ -1,22 +1,24 @@
 const express = require('express');
-const uuidv4 = require('uuid/v4');
-const Game = require('../models/game');
+const GameController = require('../models/gameController');
 const DeckBuilder = require('../models/deckBuilder');
 
 const router = express.Router();
-const games = [];
 const builder = new DeckBuilder();
 
 /* GET users listing. */
-router.get('/new', (req, res) => {
-  const id = uuidv4();
-  games.push(new Game(id));
-  res.json({ id });
+router.get('/new/:name', (req, res) => {
+  const { name } = req.params;
+  const { id, owner } = GameController.gameSetup(name);
+  res.json({
+    status: 'success',
+    id,
+    owner,
+  });
 });
 
 router.post('/:id/deck/:deckID', async (req, res) => {
   const { id, deckID } = req.params;
-  const thisGame = games.find(game => game.id === id);
+  const thisGame = GameController.findGame(id);
   if (!thisGame) {
     res.sendStatus(404);
     return;
@@ -27,6 +29,16 @@ router.post('/:id/deck/:deckID', async (req, res) => {
     status: 'success',
     deckName: deck.name,
     deckDesc: deck.description,
+  });
+});
+
+router.post('/:id/player/:playerName', (req, res) => {
+  const { id, playerName } = req.params;
+  const { name, playerID } = GameController.addPlayerToGame(id, playerName);
+  res.json({
+    status: 'success',
+    name,
+    playerID,
   });
 });
 
