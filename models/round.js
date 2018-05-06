@@ -4,6 +4,9 @@ class Round {
     this.playerCount = playerCount;
     this.playedResponses = [];
   }
+  cardsPerResponse() {
+    return this.callCard.text.length - 1;
+  }
   playResponse(card) {
     this.playedResponses.push(card);
   }

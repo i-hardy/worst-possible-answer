@@ -28,6 +28,13 @@ describe('Round', () => {
     });
   });
 
+  describe('#cardsPerResponse', () => {
+    it('returns the number of spaces for responses that the call card has', () => {
+      card.text = ['A witty statement from', 'and their friend said', '.'];
+      expect(testRound.cardsPerResponse()).to.equal(2);
+    });
+  });
+
   describe('#isReady', () => {
     it('returns true when the number of responses played equals the player count', () => {
       /* eslint no-plusplus: 0 */
