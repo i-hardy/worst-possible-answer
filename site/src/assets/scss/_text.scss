@@ -1,0 +1,19 @@
+@import './variables';
+
+#app {
+  font-family: 'Loto', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: $root-text;
+  font-size: 16px;
+}
+
+h1, h2 {
+  font-family: 'Gloria Hallelujah', sans-serif;
+  font-weight: normal;
+}
+
+.hero-text {
+  font-size: 3rem;
+}

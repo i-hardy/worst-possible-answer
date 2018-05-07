@@ -1,0 +1,12 @@
+@import './variables';
+
+.btn {
+  font-family: 'Loto', sans-serif;
+}
+
+.btn.primary {
+  background-color: $primary-red;
+  &:disabled {
+    background-color: $disabled;
+  }
+}
