@@ -51,10 +51,11 @@ export default {
     async joinGame() {
       if (this.valid) {
         const response = await http.post(`/${this.gameCode}/player/${this.playerName}`);
-        const { name, playerID } = response.data;
+        const { name, icon, playerID } = response.data;
         const player = {
           playerID,
           name,
+          icon,
           isOwner: false,
         };
         this.$store.commit('SET_GAME_ID', this.gameCode);
@@ -70,7 +71,3 @@ export default {
   },
 };
 </script>
-
-<style>
-
-</style>

@@ -1,6 +1,6 @@
 class Player {
-  constructor({ id, name, isOwner = false }) {
-    Object.assign(this, { id, name, isOwner });
+  constructor({ id, name, icon, isOwner = false }) {
+    Object.assign(this, { id, name, icon, isOwner });
     this.points = 0;
     this.hand = [];
   }

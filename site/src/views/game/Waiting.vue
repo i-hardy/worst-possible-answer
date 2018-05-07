@@ -1,6 +1,8 @@
 <template>
   <section>
-    The game is being set up.
+    <h1 class="hero-text">
+      The game is being set up.
+    </h1>
   </section>
 </template>
 

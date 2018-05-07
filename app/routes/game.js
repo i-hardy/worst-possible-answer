@@ -34,10 +34,11 @@ router.post('/:id/deck/:deckID', async (req, res) => {
 
 router.post('/:id/player/:playerName', (req, res) => {
   const { id, playerName } = req.params;
-  const { name, playerID } = GameController.addPlayerToGame(id, playerName);
+  const { name, icon, playerID } = GameController.addPlayerToGame(id, playerName);
   res.json({
     status: 'success',
     name,
+    icon,
     playerID,
   });
 });

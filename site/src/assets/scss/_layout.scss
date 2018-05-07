@@ -1,5 +1,10 @@
 @import './variables';
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   background: $white;
 }
@@ -45,7 +50,8 @@ body {
 
 .divider {
   background: $disabled;
-  & .dark {
-    background: $root-text;
-  }
+}
+
+hr.theme--dark {
+  background: $root-text;
 }

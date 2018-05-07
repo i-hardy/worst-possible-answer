@@ -46,12 +46,20 @@
         </v-list-tile>
       </template>
     </v-list>
+    <section class="mx-auto one-third">
+      <v-btn
+        :disabled="!decks.length"
+        color="primary"
+        block>
+        Start Game
+      </v-btn>
+    </section>
   </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import http from '../services/http';
+import http from '@/services/http';
 
 export default {
   name: 'GameSetup',

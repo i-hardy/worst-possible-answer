@@ -4,11 +4,21 @@ export const SET_GAME_ID = (state, id) => {
   state.gameID = id;
 };
 
-export const SET_PLAYER = (state, { playerID, name, isOwner }) => {
+export const SET_PLAYER = (state, {
+  playerID,
+  name,
+  icon,
+  isOwner,
+}) => {
   state.player.id = playerID;
-  Object.assign(state.player, { name, isOwner });
+  Object.assign(state.player, { name, icon, isOwner });
 };
 
 export const SOCKET_CHAT_MESSAGE = (state, payload) => {
-  state.game.chat.push(payload.message);
+  state.game.chat.push(JSON.parse(payload));
+};
+
+export const SOCKET_NEW_PLAYER = (state, payload) => {
+  const { players } = JSON.parse(payload);
+  state.game.players = players;
 };

@@ -1,7 +1,8 @@
 import VueRouter from 'vue-router';
-import LandingPage from '../views/LandingPage.vue';
-import GameSetup from '../views/GameSetup.vue';
-import Waiting from '../views/Waiting.vue';
+import LandingPage from '@/views/LandingPage.vue';
+import Game from '@/views/game/Game';
+import GameSetup from '@/views/game/GameSetup.vue';
+import Waiting from '@/views/game/Waiting.vue';
 
 const router = new VueRouter({
   mode: 'history',
@@ -13,10 +14,7 @@ const router = new VueRouter({
     },
     {
       path: '/game/:gameId',
-      component: {
-        name: 'GameView',
-        template: '<router-view />',
-      },
+      component: Game,
       children: [
         {
           path: 'setup',

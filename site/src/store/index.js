@@ -10,6 +10,7 @@ const store = new Vuex.Store({
     player: {
       id: '',
       name: '',
+      icon: '',
       points: 0,
       isOwner: false,
     },
