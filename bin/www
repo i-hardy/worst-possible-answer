@@ -29,6 +29,31 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+const io = require('socket.io')(server);
+
+io.on('connection', function (socket) {
+  io.emit('chat_message', { 
+    gameID: 1,
+    message: {
+      player: {
+        name: 'idgie',
+        icon: 'bear',
+      },
+      content: 'hey',
+    },
+  });
+  io.emit('chat_message', { 
+    gameID: 1,
+    message: {
+      player: {
+        name: 'emily',
+        icon: 'cat',
+      },
+      content: 'meow',
+    },
+  });
+});
+
 /**
  * Normalize a port into a number, string, or false.
  */

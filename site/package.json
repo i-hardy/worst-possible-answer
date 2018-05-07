@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "socket.io-client": "^2.1.0",
     "vue": "^2.5.11",
     "vue-router": "^3.0.1",
+    "vue-socket.io-extended": "^2.0.2",
     "vuetify": "^1.0.17",
     "vuex": "^3.0.1"
   },
@@ -33,6 +35,7 @@
     "eslint-plugin-vue": "^4.5.0",
     "file-loader": "^1.1.4",
     "node-sass": "^4.5.3",
+    "resolve-url-loader": "^2.3.0",
     "sass-loader": "^6.0.6",
     "vue-loader": "^13.0.5",
     "vue-template-compiler": "^2.4.4",

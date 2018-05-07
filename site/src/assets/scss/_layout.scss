@@ -42,3 +42,10 @@ body {
 .card {
   background-color: $white;
 }
+
+.divider {
+  background: $disabled;
+  & .dark {
+    background: $root-text;
+  }
+}

@@ -15,6 +15,7 @@ const store = new Vuex.Store({
     },
     game: {
       players: [],
+      chat: [],
     },
   },
   mutations,

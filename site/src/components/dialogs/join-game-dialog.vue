@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import http from '@/services/http';
+
 export default {
   name: 'JoinGameDialog',
   data() {
@@ -46,9 +48,23 @@ export default {
     };
   },
   methods: {
-    joinGame() {
+    async joinGame() {
       if (this.valid) {
-        alert(this.playerName);
+        const response = await http.post(`/${this.gameCode}/player/${this.playerName}`);
+        const { name, playerID } = response.data;
+        const player = {
+          playerID,
+          name,
+          isOwner: false,
+        };
+        this.$store.commit('SET_GAME_ID', this.gameCode);
+        this.$store.commit('SET_PLAYER', player);
+        this.$router.push({
+          name: 'waiting',
+          params: {
+            gameId: this.gameCode,
+          },
+        });
       }
     },
   },

@@ -1,14 +1,19 @@
 <template>
   <aside>
     <h1 class="white-text">Worst Possible Answer</h1>
-    <v-list></v-list>
+    <chat />
   </aside>
 </template>
 
 <script>
+import Chat from '@/components/chat/chat';
+
 export default {
-  name: 'sidebar',
-}
+  name: 'Sidebar',
+  components: {
+    Chat,
+  },
+};
 </script>
 
 <style lang="scss">

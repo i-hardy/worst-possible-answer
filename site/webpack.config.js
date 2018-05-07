@@ -15,6 +15,7 @@ module.exports = {
         use: [
           'vue-style-loader',
           'css-loader',
+          'resolve-url-loader',
         ],
       },
       {
@@ -22,7 +23,8 @@ module.exports = {
         use: [
           'vue-style-loader',
           'css-loader',
-          'sass-loader',
+          'resolve-url-loader',
+          'sass-loader?sourceMap',
         ],
       },
       {
@@ -30,7 +32,8 @@ module.exports = {
         use: [
           'vue-style-loader',
           'css-loader',
-          'sass-loader?indentedSyntax',
+          'resolve-url-loader',
+          'sass-loader?sourceMap',
         ],
       },
       {
@@ -45,12 +48,14 @@ module.exports = {
             'scss': [
               'vue-style-loader',
               'css-loader',
+              'resolve-url-loader',
               'sass-loader',
             ],
             'sass': [
               'vue-style-loader',
               'css-loader',
-              'sass-loader?indentedSyntax',
+              'resolve-url-loader',
+              'sass-loader?sourceMap',
             ],
           },
           // other vue-loader options go here
