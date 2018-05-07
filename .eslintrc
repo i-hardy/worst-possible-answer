@@ -1,3 +1,14 @@
 {
-  "extends": "airbnb-base"
+  "extends": ["airbnb-base", "plugin:vue/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "rules": {
+    "import/extensions": "never",
+    "import/no-unresolved": "never",
+  }
 }

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "NODE_ENV=development nodemon ./bin/www",
     "test": "mocha -r chai/register-expect",
     "watch": "mocha -r chai/register-expect --watch"
   },

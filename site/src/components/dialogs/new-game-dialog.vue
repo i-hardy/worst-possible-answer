@@ -1,22 +1,30 @@
 <template>
   <section>
     <v-dialog max-width="500px">
-      <v-btn color="primary" slot="activator">
+      <v-btn
+        slot="activator"
+        color="primary">
         New Game
       </v-btn>
       <v-card>
-      <v-card-text>
-        <v-form v-model="valid" @submit.prevent="newGame">
-        <v-text-field
-          v-model="playerName"
-          label="Your nickname"
-          :rules="[v => !!v || 'You need to enter a name!']"
-          required
-        ></v-text-field>
-        <v-btn :disabled="!valid" @click.stop="newGame" color="primary">Start Game</v-btn>
-      </v-form>
-      </v-card-text>
-    </v-card>
+        <v-card-text>
+          <v-form
+            v-model="valid"
+            @submit.prevent="newGame">
+            <v-text-field
+              v-model="playerName"
+              :rules="[v => !!v || 'You need to enter a name!']"
+              autofocus
+              label="Your nickname"
+              required
+            />
+            <v-btn
+              :disabled="!valid"
+              color="primary"
+              @click.stop="newGame">Start Game</v-btn>
+          </v-form>
+        </v-card-text>
+      </v-card>
     </v-dialog>
   </section>
 </template>
@@ -25,26 +33,31 @@
 import http from '../../services/http';
 
 export default {
-  name: 'new-game-dialog',
+  name: 'NewGameDialog',
   data() {
     return {
       valid: false,
       playerName: '',
-    }
+    };
   },
   methods: {
     async newGame() {
-      const response = await http.get(`/game/new/${this.playerName}`);
-      const { id } = response.data;
-      this.$router.push({
-        name: 'gameSetup',
-        params: {
-          gameId: id,
-        }
-      })
-    }
-  }
-}
+      if (this.valid) {
+        const response = await http.get(`/new/${this.playerName}`);
+        const { id, owner } = response.data;
+        owner.isOwner = true;
+        this.$store.commit('SET_GAME_ID', id);
+        this.$store.commit('SET_PLAYER', owner);
+        this.$router.push({
+          name: 'gameSetup',
+          params: {
+            gameId: id,
+          },
+        });
+      }
+    },
+  },
+};
 </script>
 
 <style>

@@ -8,4 +8,10 @@ $medium-teal: #54BAC3;
 $light-teal: #BEFBFF;
 $dark-teal: #448086;
 
+$dark-teal-lighter: lighten($dark-teal, 10%);
+
 $disabled: rgb(189, 189, 189);
+
+// SIZING
+
+$sidebarwidth: 300px;

@@ -5,15 +5,15 @@
       A card-matching game for distant friends
     </section>
     <section class="band__section button-wrapper">
-      <new-game-dialog></new-game-dialog>
-      <join-game-dialog></join-game-dialog>
+      <new-game-dialog />
+      <join-game-dialog />
     </section>
   </section>
 </template>
 
 <script>
-import NewGameDialog from '../components/dialogs/new-game-dialog';
-import JoinGameDialog from '../components/dialogs/join-game-dialog';
+import NewGameDialog from '@/components/dialogs/new-game-dialog';
+import JoinGameDialog from '@/components/dialogs/join-game-dialog';
 
 export default {
   name: 'LandingPage',
@@ -21,7 +21,7 @@ export default {
     NewGameDialog,
     JoinGameDialog,
   },
-}
+};
 </script>
 
 <style lang="scss">

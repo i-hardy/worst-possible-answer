@@ -1,48 +1,58 @@
 <template>
   <section>
     <v-dialog max-width="500px">
-      <v-btn color="primary" slot="activator">
+      <v-btn
+        slot="activator"
+        color="primary">
         Join a Game
       </v-btn>
       <v-card>
-      <v-card-text>
-        <v-form v-model="valid" @submit.prevent="joinGame">
-        <v-text-field
-          v-model="playerName"
-          label="Your nickname"
-          :rules="[v => !!v || 'You need to enter a name!']"
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model="gameCode"
-          label="Enter the game code"
-          :rules="[v => !!v || 'You need to enter a game code!']"
-          required
-        ></v-text-field>
-        <v-btn :disabled="!valid" @click="joinGame" color="primary">Join Game</v-btn>
-      </v-form>
-      </v-card-text>
-    </v-card>
+        <v-card-text>
+          <v-form
+            v-model="valid"
+            @submit.prevent="joinGame">
+            <v-text-field
+              v-model="playerName"
+              :rules="[v => !!v || 'You need to enter a name!']"
+              autofocus
+              label="Your nickname"
+              required
+            />
+            <v-text-field
+              v-model="gameCode"
+              :rules="[v => !!v || 'You need to enter a game code!']"
+              label="Enter the game code"
+              required
+            />
+            <v-btn
+              :disabled="!valid"
+              color="primary"
+              @click="joinGame">Join Game</v-btn>
+          </v-form>
+        </v-card-text>
+      </v-card>
     </v-dialog>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'join-game-dialog',
+  name: 'JoinGameDialog',
   data() {
     return {
       valid: false,
       playerName: '',
       gameCode: '',
-    }
+    };
   },
   methods: {
     joinGame() {
-      alert(this.playerName);
-    }
-  }
-}
+      if (this.valid) {
+        alert(this.playerName);
+      }
+    },
+  },
+};
 </script>
 
 <style>

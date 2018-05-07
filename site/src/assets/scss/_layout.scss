@@ -4,6 +4,26 @@ body {
   background: $white;
 }
 
+.display-b {
+  display: block;
+}
+
+.display-ib {
+  display: inline-block;
+}
+
+.display-i {
+  display: inline;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-acenter {
+  align-items: center;
+}
+
 .band {
   display: flex;
   flex-direction: column;
