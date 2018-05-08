@@ -1,12 +1,14 @@
 const Game = require('../models/game');
 const Player = require('../models/player');
-const uuidv1 = require('uuid/v1');
 const uuidv4 = require('uuid/v4');
 const fs = require('fs');
 const icons = require('../models/iconlist');
 
 const GameController = {
   games: [],
+  generateGameId() {
+    return (Math.random() * Date.now()).toString(36).substring(0, 8).toUpperCase();
+  },
   gameSetup(ownerName) {
     const id = this.newGame();
     const owner = this.newPlayer(ownerName, true);
@@ -30,7 +32,7 @@ const GameController = {
     };
   },
   newGame() {
-    const id = uuidv4();
+    const id = this.generateGameId();
     this.games.push(new Game(id));
     return id;
   },
@@ -39,7 +41,7 @@ const GameController = {
   },
   newPlayer(name, isOwner = false) {
     const icon = icons[Math.floor(Math.random()*icons.length)]
-    const id = uuidv1();
+    const id = uuidv4();
     return new Player({ id, name, icon, isOwner });
   },
 };

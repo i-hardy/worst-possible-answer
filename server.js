@@ -2,7 +2,7 @@ const debug = require('debug')('cah-clone:server');
 const http = require('http');
 const app = require('./app/app');
 const port = normalizePort(process.env.PORT || '3000');
-const GameController = require('./models/gameController');
+const GameController = require('./app/models/gameController');
 
 app.set('port', port);
 
