@@ -12,6 +12,9 @@ $dark-teal-lighter: lighten($dark-teal, 10%);
 
 $disabled: rgb(189, 189, 189);
 
+$dark-theme-base: $root-text;
+$light-theme-base: lighten($disabled, 10%);
+
 // SIZING
 
 $sidebarwidth: 300px;

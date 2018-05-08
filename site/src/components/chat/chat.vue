@@ -3,24 +3,14 @@
     width="90%"
     class="mx-auto">
     <v-card
+      v-chat-scroll="{ always: false }"
       height="250px"
       class="chat-container">
       <v-list>
-        <template v-for="(message, index) in messages">
-          <v-card
-            :key="index"
-            class="flex px-2 pt-2"
-            flat>
-            <player-icon :player="message.player" />
-            <v-list-tile-content>
-              <v-list-tile-title v-html="message.player.name" />
-              <p v-html="message.content" />
-            </v-list-tile-content>
-          </v-card>
-          <v-divider
-            v-if="index + 1 < messages.length"
-            :key="`divider-${index}`" />
-        </template>
+        <chat-message
+          v-for="(message, index) in messages"
+          :key="index"
+          :message="message" />
       </v-list>
     </v-card>
     <v-divider dark />
@@ -49,12 +39,12 @@
 
 <script>
 import { mapState } from 'vuex';
-import PlayerIcon from '@/components/player/playerIcon';
+import ChatMessage from '@/components/chat/chatMessage';
 
 export default {
   name: 'Chat',
   components: {
-    PlayerIcon,
+    ChatMessage,
   },
   data() {
     return {

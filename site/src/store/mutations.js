@@ -14,6 +14,13 @@ export const SET_PLAYER = (state, {
   Object.assign(state.player, { name, icon, isOwner });
 };
 
+export const CLEAR_GAME = (state) => {
+  state.game = {
+    players: [],
+    chat: [],
+  };
+};
+
 export const SOCKET_CHAT_MESSAGE = (state, payload) => {
   state.game.chat.push(JSON.parse(payload));
 };

@@ -1,5 +1,6 @@
 const Game = require('../models/game');
 const Player = require('../models/player');
+const randomatic = require('randomatic');
 const uuidv4 = require('uuid/v4');
 const fs = require('fs');
 const icons = require('../models/iconlist');
@@ -32,7 +33,7 @@ const GameController = {
     };
   },
   newGame() {
-    const id = this.generateGameId();
+    const id = randomatic('A0', 8);;
     this.games.push(new Game(id));
     return id;
   },

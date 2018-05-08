@@ -29,6 +29,10 @@ body {
   align-items: center;
 }
 
+.flex-jbetween {
+  justify-content: space-between; 
+}
+
 .band {
   display: flex;
   flex-direction: column;

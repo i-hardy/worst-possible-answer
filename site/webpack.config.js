@@ -73,6 +73,10 @@ module.exports = {
           name: '[name].[ext]?[hash]',
         },
       },
+      {
+        test: /\.styl$/,
+        loader: 'css-loader!stylus-loader?paths=node_modules/bootstrap-stylus/stylus/',
+      },
     ],
   },
   resolve: {

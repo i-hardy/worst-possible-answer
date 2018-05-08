@@ -12,30 +12,7 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-const io = require('socket.io')(server);
-
-io.on('connection', function (socket) {
-  let thisGame;
-
-  socket.on('room', function({ gameID, player }) {
-    thisGame = GameController.findGame(gameID);
-    console.log(thisGame);
-    socket.join(gameID);
-    if (!thisGame) return;
-    const gamePlayer = thisGame.players.find(p => p.id === player.id);
-    if (!gamePlayer.joined) {
-      io.sockets.in(gameID).emit('new_player', JSON.stringify({
-        players: thisGame.players,
-      }));
-    }
-    gamePlayer.joined = true;
-  });
-
-  socket.on('chat_message', function({ player, content }) {
-    io.sockets.in(thisGame.id).emit('chat_message', JSON.stringify({ player, content }));
-  });
-});
-
+const io = require('./app/sockets')(server);
 
 function normalizePort(val) {
   var port = parseInt(val, 10);

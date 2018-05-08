@@ -21,5 +21,8 @@ export default {
     NewGameDialog,
     JoinGameDialog,
   },
+  mounted() {
+    this.$store.commit('CLEAR_GAME');
+  },
 };
 </script>

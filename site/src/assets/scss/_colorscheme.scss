@@ -1,0 +1,37 @@
+@import './variables';
+
+// .primary {
+//   background-color: $primary-red;
+//   color: $white;
+// }
+
+.primary-red--text {
+  color: $primary-red;
+}
+
+.secondary {
+  background-color: $medium-teal;
+  color: $white;
+}
+
+.secondary--text {
+  color: $medium-teal;
+}
+
+.light {
+  background-color: $light-teal;
+}
+
+.dark {
+  background-color: $dark-teal;
+}
+
+.theme--dark {
+  background-color: $dark-theme-base;
+  color: $white; 
+}
+
+.theme--light {
+  background-color: $light-theme-base;
+  color: $root-text;
+}
