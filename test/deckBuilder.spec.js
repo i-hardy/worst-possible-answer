@@ -1,4 +1,4 @@
-const DeckBuilder = require('../models/deckBuilder');
+const DeckBuilder = require('../app/models/deckBuilder');
 
 describe('DeckBuilder', () => {
   const mockCardcast = () => ({

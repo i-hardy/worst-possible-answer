@@ -10,5 +10,7 @@
   "rules": {
     "import/extensions": "never",
     "import/no-unresolved": "never",
+    "no-underscore-dangle": 0,
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
   }
 }

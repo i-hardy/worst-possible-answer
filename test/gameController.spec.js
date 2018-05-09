@@ -1,6 +1,6 @@
-const GameController = require('../models/gameController');
-const Game = require('../models/game');
-const Player = require('../models/player');
+const GameController = require('../app/models/gameController');
+const Game = require('../app/models/game');
+const Player = require('../app/models/player');
 
 describe('GameController', () => {
   beforeEach(() => {

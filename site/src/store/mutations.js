@@ -29,3 +29,8 @@ export const SOCKET_NEW_PLAYER = (state, payload) => {
   const { players } = JSON.parse(payload);
   state.game.players = players;
 };
+
+export const SOCKET_SEND_HAND = (state, payload) => {
+  const { hand } = JSON.parse(payload);
+  state.hand = hand;
+};

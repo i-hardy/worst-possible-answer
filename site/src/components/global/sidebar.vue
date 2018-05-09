@@ -29,6 +29,7 @@ aside {
   background-color: $medium-teal;
   width: $sidebarwidth;
   height: 100%;
+  z-index: 100;
 }
 
 .aside--section_two-thirds {

@@ -1,6 +1,16 @@
 class Player {
-  constructor({ id, name, icon, isOwner = false }) {
-    Object.assign(this, { id, name, icon, isOwner });
+  constructor({
+    id,
+    name,
+    icon,
+    isOwner = false,
+  }) {
+    Object.assign(this, {
+      id,
+      name,
+      icon,
+      isOwner,
+    });
     this.points = 0;
     this.hand = [];
   }
@@ -9,6 +19,11 @@ class Player {
   }
   deal(card) {
     this.hand.push(card);
+    const payload = JSON.stringify({ hand: this.hand });
+    this.socket.emit('send_hand', payload);
+  }
+  receiveSocket(socket) {
+    this.socket = socket;
   }
   dealHand(cards) {
     cards.forEach((card) => {

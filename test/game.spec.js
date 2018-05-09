@@ -1,4 +1,4 @@
-const Game = require('../models/game');
+const Game = require('../app/models/game');
 const uuidv4 = require('uuid/v4');
 
 describe('Game', () => {

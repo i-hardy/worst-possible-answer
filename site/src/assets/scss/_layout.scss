@@ -25,8 +25,21 @@ body {
   display: flex;
 }
 
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .flex-acenter {
   align-items: center;
+}
+
+.flex-aend {
+  align-items: flex-end;
+}
+
+.flex-jend {
+  justify-content: flex-end;
 }
 
 .flex-jbetween {

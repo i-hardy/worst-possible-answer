@@ -1,7 +1,7 @@
 class Round {
-  constructor(callCard, playerCount) {
+  constructor(callCard, players) {
     this.callCard = callCard;
-    this.playerCount = playerCount;
+    this.players = players;
     this.playedResponses = [];
   }
   cardsPerResponse() {
@@ -11,7 +11,7 @@ class Round {
     this.playedResponses.push(card);
   }
   isReady() {
-    return this.playedResponses.length === this.playerCount;
+    return this.playedResponses.length === this.players.length;
   }
 }
 

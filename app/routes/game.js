@@ -43,4 +43,11 @@ router.post('/:id/player/:playerName', (req, res) => {
   });
 });
 
+router.post('/:id/start', (req, res) => {
+  const { id } = req.params;
+  const thisGame = GameController.findGame(id);
+  GameController.startGame(thisGame);
+  res.sendStatus(200);
+});
+
 module.exports = router;

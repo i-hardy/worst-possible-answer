@@ -1,18 +1,20 @@
-const Round = require('../models/round');
+const Round = require('../app/models/round');
 
 describe('Round', () => {
   let card;
+  let players;
   let testRound;
 
   beforeEach(() => {
     card = {};
-    testRound = new Round(card, 3);
+    players = [];
+    testRound = new Round(card, players);
   });
 
   describe('initialisation', () => {
-    it('initialises with a call card object and a player count', () => {
+    it('initialises with a call card object and the passed player array', () => {
       expect(testRound.callCard).to.equal(card);
-      expect(testRound.playerCount).to.equal(3);
+      expect(testRound.players).to.equal(players);
     });
 
     it('has an empty array of playedResponses', () => {
@@ -37,7 +39,7 @@ describe('Round', () => {
 
   describe('#isReady', () => {
     it('returns true when the number of responses played equals the player count', () => {
-      /* eslint no-plusplus: 0 */
+      testRound.players = [1, 2, 3];
       for (let i = 0; i < 3; i++) {
         testRound.playResponse({});
       }

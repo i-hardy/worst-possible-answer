@@ -1,4 +1,4 @@
-const Dealer = require('../models/dealer');
+const Dealer = require('../app/models/dealer');
 
 describe('Dealer', () => {
   let testDealer;

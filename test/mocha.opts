@@ -1,0 +1,3 @@
+--reporter nyan
+-r chai/register-expect
+--require test/common

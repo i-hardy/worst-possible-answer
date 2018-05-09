@@ -1,4 +1,5 @@
-const Player = require('../models/player');
+const { mockSocket } = require('./mocks');
+const Player = require('../app/models/player');
 const uuidv4 = require('uuid/v4');
 
 describe('Player', () => {
@@ -7,6 +8,7 @@ describe('Player', () => {
 
   beforeEach(() => {
     testPlayer = new Player({ id, name: 'zelda', isOwner: true });
+    testPlayer.receiveSocket(mockSocket);
   });
 
   describe('initialisation', () => {
