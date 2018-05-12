@@ -1,3 +1,5 @@
+// require('dotenv').config();
+
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueSocketio from 'vue-socket.io-extended';

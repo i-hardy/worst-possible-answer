@@ -6,8 +6,22 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "test": "jest",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    },
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    }
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -26,6 +40,7 @@
     "not ie <= 8"
   ],
   "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.15",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -36,11 +51,13 @@
     "eslint": "^4.19.1",
     "eslint-plugin-vue": "^4.5.0",
     "file-loader": "^1.1.4",
+    "jest": "^22.4.3",
     "node-sass": "^4.5.3",
     "resolve-url-loader": "^2.3.0",
     "sass-loader": "^6.0.6",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
+    "vue-jest": "^2.5.0",
     "vue-loader": "^13.0.5",
     "vue-template-compiler": "^2.4.4",
     "webpack": "^3.6.0",

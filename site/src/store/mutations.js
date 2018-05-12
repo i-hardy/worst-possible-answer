@@ -34,3 +34,16 @@ export const SOCKET_SEND_HAND = (state, payload) => {
   const { hand } = JSON.parse(payload);
   state.hand = hand;
 };
+
+export const SOCKET_SEND_NUDGE = (state, payload) => {
+  state.nudgeMessage.content = payload;
+  state.nudgeMessage.show = true;
+};
+
+export const SOCKET_SET_CALL_CARD = (state, payload) => {
+  state.game.callCard = JSON.parse(payload);
+};
+
+export const SOCKET_SEND_WINNER = (state) => {
+  
+};

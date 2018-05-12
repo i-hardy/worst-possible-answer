@@ -58,17 +58,7 @@ export default {
       player: state => state.player,
     }),
   },
-  mounted() {
-    this.joinRoom();
-  },
   methods: {
-    joinRoom() {
-      const joinPacket = {
-        gameID: this.gameID,
-        player: this.player,
-      };
-      this.$socket.emit('room', joinPacket);
-    },
     sendMessage() {
       const message = {
         gameID: this.gameID,

@@ -40,6 +40,12 @@ class Game {
     });
     return responses;
   }
+  setWinCondition(condition) {
+    this.winCondition = condition;
+  }
+  run() {
+    this.isRunning = true;
+  }
 }
 
 module.exports = Game;

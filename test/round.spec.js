@@ -37,6 +37,14 @@ describe('Round', () => {
     });
   });
 
+  describe('#pendingPlayers', () => {
+    it('rewturns all players who have not yet responded', () => {
+      testRound.players = [{ id: 1 }, { id: 2 }];
+      testRound.playedResponses = [{ playerId: 1, card: {} }];
+      expect(testRound.pendingPlayers()).to.deep.equal([{ id: 2 }]);
+    });
+  });
+
   describe('#isReady', () => {
     it('returns true when the number of responses played equals the player count', () => {
       testRound.players = [1, 2, 3];

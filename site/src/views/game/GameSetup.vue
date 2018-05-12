@@ -29,12 +29,19 @@
         </v-btn>
       </v-form>
     </section>
-    <deck-list :decks="decks" />
+    <deck-list
+      :decks="decks"
+      @remove-deck="removeDeck" />
     <section class="mx-auto one-third">
+      <v-text-field
+        v-model="winCondition"
+        label="Points to win"
+      />
       <v-btn
-        :disabled="!decks.length"
+        :disabled="!gameReady"
         color="primary"
-        block>
+        block
+        @click="startGame">
         Start Game
       </v-btn>
     </section>
@@ -58,10 +65,14 @@ export default {
       newDeckId: '',
       loadingDeck: false,
       decks: [],
+      winCondition: '',
     };
   },
   computed: {
     ...mapState(['gameID']),
+    gameReady() {
+      return this.decks.length && !!this.winCondition;
+    },
   },
   methods: {
     async addDeck() {
@@ -69,28 +80,24 @@ export default {
       this.loadingDeck = true;
       try {
         const response = await http.post(`/${this.gameID}/deck/${this.newDeckId}`);
-        const { deckName, deckDesc } = response.data;
+        const { deckID, deckName, deckDesc } = response.data;
         this.newDeckId = '';
-        this.decks.push({ deckName, deckDesc });
+        this.decks.push({ deckID, deckName, deckDesc });
         this.$socket.emit('deck_added', { deckName });
       } catch (error) {
-        console.log('whoops');
+        console.error('whoops');
       }
       this.loadingDeck = false;
     },
-    removeDeck(deck) {
-      console.log(deck);
+    async startGame() {
+      await http.post(`/${this.gameID}/start`, { winCondition: this.winCondition });
+      this.$socket.emit('game_start');
+    },
+    async removeDeck(deck) {
+      await http.post(`/${this.gameID}/deck/${deck.deckID}/remove`);
+      this.decks = this.decks.filter(d => d.deckID !== deck.deckID);
+      this.$socket.emit('deck_removed', { deckName: deck.deckName });
     },
   },
 };
 </script>
-
-<style>
-.one-third {
-  width: 33%;
-}
-
-.two-thirds {
-  width: 66%;
-}
-</style>

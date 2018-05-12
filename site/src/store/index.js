@@ -18,6 +18,16 @@ const store = new Vuex.Store({
     game: {
       players: [],
       chat: [],
+      callCard: {},
+      responses: [],
+      round: {
+        isEnded: false,
+        winningResponse: null,
+      },
+    },
+    nudgeMessage: {
+      show: false,
+      content: '',
     },
   },
   mutations,

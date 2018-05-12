@@ -27,8 +27,22 @@ router.post('/:id/deck/:deckID', async (req, res) => {
   thisGame.addDeck(deck);
   res.json({
     status: 'success',
+    deckID,
     deckName: deck.name,
     deckDesc: deck.description,
+  });
+});
+
+router.post('/:id/deck/:deckID/remove', async (req, res) => {
+  const { id, deckID } = req.params;
+  const thisGame = GameController.findGame(id);
+  if (!thisGame) {
+    res.sendStatus(404);
+    return;
+  }
+  thisGame.removeDeck(deckID);
+  res.json({
+    status: 'success',
   });
 });
 
@@ -45,7 +59,9 @@ router.post('/:id/player/:playerName', (req, res) => {
 
 router.post('/:id/start', (req, res) => {
   const { id } = req.params;
+  const { winCondition } = req.body;
   const thisGame = GameController.findGame(id);
+  thisGame.setWinCondition(winCondition);
   GameController.startGame(thisGame);
   res.sendStatus(200);
 });

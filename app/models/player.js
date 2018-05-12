@@ -25,6 +25,9 @@ class Player {
   receiveSocket(socket) {
     this.socket = socket;
   }
+  notify(message) {
+    this.socket.emit('send_nudge', message);
+  }
   dealHand(cards) {
     cards.forEach((card) => {
       this.deal(card);

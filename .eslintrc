@@ -8,9 +8,10 @@
     }
   },
   "rules": {
-    "import/extensions": "never",
-    "import/no-unresolved": "never",
+    "import/extensions": 0,
+    "import/no-unresolved": 0,
     "no-underscore-dangle": 0,
-    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "arrow-body-style": ["error", "as-needed", { "requireReturnForObjectLiteral": true }]
   }
 }
