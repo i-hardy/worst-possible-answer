@@ -1,36 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import * as mutations from './mutations';
+import game from './game';
+import player from './player';
+import messaging from './messaging';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  state: {
-    gameID: '',
-    hand: [],
-    player: {
-      id: '',
-      name: '',
-      icon: '',
-      points: 0,
-      isOwner: false,
-    },
-    game: {
-      players: [],
-      chat: [],
-      callCard: {},
-      responses: [],
-      round: {
-        isEnded: false,
-        winningResponse: null,
-      },
-    },
-    nudgeMessage: {
-      show: false,
-      content: '',
-    },
+  modules: {
+    game,
+    player,
+    messaging,
   },
-  mutations,
 });
 
 export { store as default };

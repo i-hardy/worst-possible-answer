@@ -16,14 +16,15 @@ class GameEngine {
   }
   winner() {
     return this.game.players
-      .find(player => player.points === parseInt(this.game.winCondition));
+      .find(player => player.points === parseInt(this.game.winCondition, 10));
   }
   notifyRoundOver(message, packet, cardsToDeal) {
     this.activeRound = null;
     if (!this.winner()) {
       this.sendToPlayers(message, packet);
       setTimeout(this.subsequentRound.bind(this, cardsToDeal),
-        process.env.ROUND_GAP_TIMEOUT * 1000);
+        process.env.ROUND_GAP_TIMEOUT * 1000,
+      );
     } else {
       this.sendToPlayers('game_won', this.winner());
     }
@@ -45,7 +46,7 @@ class GameEngine {
       this.game.players,
       this.notifyRoundOver.bind(this),
       this.sendToPlayers.bind(this));
-    this.sendToPlayers('set_call_card', JSON.stringify(call));
+    this.sendToPlayers('set_call_card', call);
     this.rounds.push(this.activeRound);
   }
   _passCardsToDealer() {

@@ -54,7 +54,7 @@ export default {
   computed: {
     ...mapState({
       messages: state => state.game.chat,
-      gameID: state => state.gameID,
+      gameID: state => state.game.gameID,
       player: state => state.player,
     }),
   },

@@ -2,6 +2,7 @@
 
 $root-text: #2c3e50;
 $white: #fff;
+$black: #000;
 
 $primary-red: #CB1818;
 $medium-teal: #54BAC3;
@@ -15,6 +16,7 @@ $disabled: rgb(189, 189, 189);
 $dark-theme-base: $root-text;
 $light-theme-base: lighten($disabled, 10%);
 
+$background-grey: lighten($light-theme-base, 10%);
 // SIZING
 
 $sidebarwidth: 300px;

@@ -28,7 +28,6 @@ module.exports = (server) => {
     });
 
     socket.on('game_start', () => {
-      console.log('game starting');
       gameRoom.emit('startGame');
     });
 
@@ -44,6 +43,12 @@ module.exports = (server) => {
     socket.on('deck_removed', ({ deckName }) => {
       const content = `Deck removed: ${deckName}`;
       gameRoom.emit('chat_message', JSON.stringify({ content }));
+    });
+
+    socket.on('play_card', ({ playerID, cardID }) => {
+      const playedCard = thisGame.allResponses().find(card => card.id === cardID);
+      const { activeRound } = GameController.findEngine(thisGame);
+      activeRound.playResponse({ playerID, playedCard });
     });
   });
 };

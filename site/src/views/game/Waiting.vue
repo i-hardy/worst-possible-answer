@@ -32,7 +32,7 @@ export default {
 
 .gif {
   border: 1rem solid $primary-red;
-  border-radius: 10px;
+  border-radius: 7px;
   max-height: 400px;
 }
 </style>

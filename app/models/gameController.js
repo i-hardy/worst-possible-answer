@@ -43,6 +43,9 @@ const GameController = {
   findGame(id) {
     return this.games.find(game => game.id === id);
   },
+  findEngine(game) {
+    return this.gameEngines.find(engine => engine.game === game);
+  },
   newPlayer(name, isOwner = false) {
     const icon = icons[Math.floor(Math.random() * icons.length)];
     const id = uuidv4();
@@ -56,9 +59,10 @@ const GameController = {
   startGame(game) {
     const dealer = new Dealer();
     const engine = new GameEngine(game, this.io, dealer);
+    this.gameEngines.push(engine);
     game.run();
     engine.firstRound();
-  }
+  },
 };
 
 module.exports = GameController;

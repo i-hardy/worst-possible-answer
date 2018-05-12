@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import http from '@/services/http';
 import Shareables from '@/components/admin/shareables';
 import DeckList from '@/components/admin/deckList';
@@ -69,12 +69,15 @@ export default {
     };
   },
   computed: {
-    ...mapState(['gameID']),
+    ...mapState({
+      gameID: state => state.game.gameID,
+    }),
     gameReady() {
       return this.decks.length && !!this.winCondition;
     },
   },
   methods: {
+    ...mapMutations(['SEND_TOAST']),
     async addDeck() {
       if (!this.newDeckId) return;
       this.loadingDeck = true;
@@ -85,7 +88,7 @@ export default {
         this.decks.push({ deckID, deckName, deckDesc });
         this.$socket.emit('deck_added', { deckName });
       } catch (error) {
-        console.error('whoops');
+        this.SEND_TOAST('An error occurred. Please try again.');
       }
       this.loadingDeck = false;
     },

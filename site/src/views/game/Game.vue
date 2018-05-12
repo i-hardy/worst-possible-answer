@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="full-height">
     <sidebar />
     <section class="content content__with-sidebar">
       <router-view style="width:100%" />
@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     ...mapState({
-      gameID: state => state.gameID,
+      gameID: state => state.game.gameID,
       player: state => state.player,
     }),
   },
@@ -48,6 +48,7 @@ export default {
 @import '../../assets/scss/variables';
 
 .content {
+  height: 100%;
   width: 100%;
   &__with-sidebar {
     margin-left: $sidebarwidth;

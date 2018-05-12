@@ -14,6 +14,18 @@ const router = new VueRouter({
       component: LandingPage,
     },
     {
+      path: '/about',
+      name: 'about',
+    },
+    {
+      path: '/privacy',
+      name: 'privacy',
+    },
+    {
+      path: '/tutorial',
+      name: 'howToPlay',
+    },
+    {
       path: '/game/:gameId',
       component: Game,
       children: [

@@ -1,9 +1,14 @@
-const firstTimeout = parseInt(process.env.ROUND_FIRST_TIMEOUT);
-const secondTimeout = parseInt(process.env.ROUND_SECOND_TIMEOUT);
+const firstTimeout = parseInt(process.env.ROUND_FIRST_TIMEOUT, 10);
+const secondTimeout = parseInt(process.env.ROUND_SECOND_TIMEOUT, 10);
 
 class Round {
   constructor(callCard, players, doneFunction, sendFunction) {
-    Object.assign(this, { callCard, players, doneFunction, sendFunction });
+    Object.assign(this, {
+      callCard,
+      players,
+      doneFunction,
+      sendFunction,
+    });
     this.playedResponses = [];
     this.pollCount = 0;
     this.nudged = false;
@@ -19,7 +24,7 @@ class Round {
   }
   pendingPlayers() {
     const { playedResponses } = this;
-    return this.players.filter(player => !playedResponses.some(response => response.playerId === player.id));
+    return this.players.filter(player => !playedResponses.some(response => response.playerID === player.id));
   }
   wait(pollTime = firstTimeout) {
     this.pollInterval = setInterval(this
@@ -64,10 +69,10 @@ class Round {
     if (this.winningResponse) {
       clearInterval(this.czarInterval);
       const winner = this.players
-        .find(player => player.id === this.winningResponse.playerId);
+        .find(player => player.id === this.winningResponse.playerID);
       winner.addPoint();
       this.doneFunction('send_winner', this.winningResponse);
-    } else if (this.pollCount = firstTimeout) {
+    } else if (this.pollCount === firstTimeout) {
       clearInterval(this.czarInterval);
       this.doneFunction('send_czar_timeout', {});
     }
@@ -75,7 +80,7 @@ class Round {
   }
   czarPick(response) {
     this.winningResponse = this.playedResponses
-      .find(res => res.playerId === response.playerId);
+      .find(res => res.playerID === response.playerID);
   }
 }
 
