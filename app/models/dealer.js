@@ -13,13 +13,21 @@ class Dealer {
   }
   pickCall() {
     const toPick = this.calls.find(card => !card.isDealt);
-    toPick.isDealt = true;
-    return toPick;
+    try {
+      toPick.isDealt = true;
+      return toPick;
+    } catch (error) {
+      throw error;
+    }
   }
   pickResponse() {
     const toPick = this.responses.find(card => !card.isDealt);
-    toPick.isDealt = true;
-    return toPick;
+    try {
+      toPick.isDealt = true;
+      return toPick;
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

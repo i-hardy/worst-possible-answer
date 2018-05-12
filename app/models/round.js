@@ -2,9 +2,10 @@ const firstTimeout = parseInt(process.env.ROUND_FIRST_TIMEOUT, 10);
 const secondTimeout = parseInt(process.env.ROUND_SECOND_TIMEOUT, 10);
 
 class Round {
-  constructor(callCard, players, doneFunction, sendFunction) {
+  constructor(callCard, czar, players, doneFunction, sendFunction) {
     Object.assign(this, {
       callCard,
+      czar,
       players,
       doneFunction,
       sendFunction,
@@ -13,18 +14,22 @@ class Round {
     this.pollCount = 0;
     this.nudged = false;
   }
+  nonCzarPlayers() {
+    return this.players.filter(player => player.id !== this.czar.id);
+  }
   cardsPerResponse() {
     return this.callCard.text.length - 1;
   }
   isReady() {
-    return this.playedResponses.length === this.players.length;
+    return this.playedResponses.length === this.nonCzarPlayers().length;
   }
   playResponse(response) {
     this.playedResponses.push(response);
   }
   pendingPlayers() {
     const { playedResponses } = this;
-    return this.players.filter(player => !playedResponses.some(response => response.playerID === player.id));
+    return this.players
+      .filter(player => !playedResponses.some(response => response.playerID === player.id));
   }
   wait(pollTime = firstTimeout) {
     this.pollInterval = setInterval(this
@@ -61,26 +66,45 @@ class Round {
     });
     this.czarTime();
   }
+  playersWhoPlayed() {
+    return this.nonCzarPlayers().filter(player => !this.pendingPlayers().includes(player));
+  }
   czarTime() {
     this.pollCount = 0;
+    this.sendFunction('send_all_responses', { responses: this.playedResponses });
     this.czarInterval = setInterval(this.checkForCzar.bind(this), 1000);
   }
   checkForCzar() {
     if (this.winningResponse) {
-      clearInterval(this.czarInterval);
-      const winner = this.players
-        .find(player => player.id === this.winningResponse.playerID);
-      winner.addPoint();
-      this.doneFunction('send_winner', this.winningResponse);
+      this.roundHadWinner();
     } else if (this.pollCount === firstTimeout) {
-      clearInterval(this.czarInterval);
-      this.doneFunction('send_czar_timeout', {});
+      this.czarTimedOut();
     }
     this.pollCount += 1;
   }
   czarPick(response) {
     this.winningResponse = this.playedResponses
       .find(res => res.playerID === response.playerID);
+  }
+  roundHadWinner() {
+    clearInterval(this.czarInterval);
+    const winner = this.players
+      .find(player => player.id === this.winningResponse.playerID);
+    winner.addPoint();
+    this.sendRoundEnd({ winner: winner.id });
+  }
+  czarTimedOut() {
+    clearInterval(this.czarInterval);
+    this.sendFunction('chat_message', { content: 'The card czar fell asleep' });
+    this.sendRoundEnd({});
+  }
+  sendRoundEnd(packet) {
+    this.doneFunction(
+      'send_new_round',
+      packet,
+      this.cardsPerResponse(),
+      this.playersWhoPlayed(),
+    );
   }
 }
 

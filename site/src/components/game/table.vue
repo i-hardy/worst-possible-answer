@@ -8,14 +8,16 @@
       </v-card-text>
     </v-card>
     <card
-      v-for="(card, index) in cardsPlayed"
+      v-for="(playedCard, index) in cardsPlayed"
       :key="index"
-      :card="card" />
+      :card="playedCard.card"
+      :playerID="playedCard.playerID"
+      :pickable="getClientIsCzar" />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import Card from '@/components/game/card';
 
 export default {
@@ -27,7 +29,9 @@ export default {
     ...mapState({
       callCard: state => state.game.round.callCard,
       cardsPlayed: state => state.game.round.cardsPlayed,
+      roundWinner: state => state.game.round.winner,
     }),
+    ...mapGetters(['getClientIsCzar']),
     callCardText() {
       return this.callCard.text.join('___');
     },

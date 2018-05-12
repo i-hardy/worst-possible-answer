@@ -13,6 +13,6 @@
     "no-underscore-dangle": 0,
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "arrow-body-style": ["error", "as-needed", { "requireReturnForObjectLiteral": true }],
-    "vue/attribute-hyphenation": [2, "never", { "ignore": ["custom-prop"] }]
+    "vue/attribute-hyphenation": 0
   }
 }

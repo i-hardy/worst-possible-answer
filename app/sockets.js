@@ -8,8 +8,8 @@ module.exports = (server) => {
   function newPlayer(game, player, socket) {
     const gamePlayer = game.players.find(p => p.id === player.id);
     if (!gamePlayer.socket) {
-      io.sockets.in(game.id).emit('new_player', JSON.stringify({
-        players: game.players,
+      io.sockets.in(game.id).emit('update_players', JSON.stringify({
+        players: game.sanitizedPlayers(),
       }));
     }
     gamePlayer.receiveSocket(socket);
@@ -46,9 +46,15 @@ module.exports = (server) => {
     });
 
     socket.on('play_card', ({ playerID, cardID }) => {
-      const playedCard = thisGame.allResponses().find(card => card.id === cardID);
+      const card = thisGame.allResponses().find(c => c.id === cardID);
       const { activeRound } = GameController.findEngine(thisGame);
-      activeRound.playResponse({ playerID, playedCard });
+      activeRound.playResponse({ playerID, card });
+    });
+
+    socket.on('czar_pick', ({ playerID, cardID }) => {
+      const card = thisGame.allResponses().find(c => c.id === cardID);
+      const { activeRound } = GameController.findEngine(thisGame);
+      activeRound.czarPick({ playerID, card });
     });
   });
 };

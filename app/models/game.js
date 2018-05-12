@@ -22,6 +22,24 @@ class Game {
   removePlayer(playerID) {
     this.players = this.players.filter(player => player.id !== playerID);
   }
+  sanitizedPlayers() {
+    return this.players.map((player) => {
+      const {
+        id,
+        name,
+        icon,
+        isOwner,
+        points,
+      } = player;
+      return {
+        id,
+        name,
+        icon,
+        isOwner,
+        points,
+      };
+    });
+  }
   allCalls() {
     const calls = [];
     this.decks.forEach((deck) => {

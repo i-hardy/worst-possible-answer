@@ -12,6 +12,7 @@
           <player-icon :player="player" />
           <v-list-tile-content>
             <v-list-tile-title v-text="player.name" />
+            <v-list-tile-sub-title v-text="`${player.points} points`" />
           </v-list-tile-content>
         </v-list-tile>
         <v-divider

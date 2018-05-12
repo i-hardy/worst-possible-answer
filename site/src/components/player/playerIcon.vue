@@ -4,7 +4,7 @@
       overlap
       left>
       <span
-        v-if="player.name === 'idgie'"
+        v-if="hasCrown"
         slot="badge"
         class="icon__czar-badge">
         <svg
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'PlayerIcon',
   props: {
@@ -33,6 +35,12 @@ export default {
     },
   },
   computed: {
+    ...mapState({
+      czar: state => state.game.round.czar,
+    }),
+    hasCrown() {
+      return this.player.id === this.czar;
+    },
     icon() {
       /* eslint-disable */
       return require(`@/assets/images/playerIcons/${this.player.icon}.svg`);

@@ -17,33 +17,41 @@ router.get('/new/:name', (req, res) => {
 });
 
 router.post('/:id/deck/:deckID', async (req, res) => {
-  const { id, deckID } = req.params;
-  const thisGame = GameController.findGame(id);
-  if (!thisGame) {
-    res.sendStatus(404);
-    return;
+  try {
+    const { id, deckID } = req.params;
+    const thisGame = GameController.findGame(id);
+    if (!thisGame) {
+      res.sendStatus(404);
+      return;
+    }
+    const deck = await builder.buildDeck(deckID);
+    thisGame.addDeck(deck);
+    res.json({
+      status: 'success',
+      deckID,
+      deckName: deck.name,
+      deckDesc: deck.description,
+    });
+  } catch (error) {
+    res.sendStatus(500);
   }
-  const deck = await builder.buildDeck(deckID);
-  thisGame.addDeck(deck);
-  res.json({
-    status: 'success',
-    deckID,
-    deckName: deck.name,
-    deckDesc: deck.description,
-  });
 });
 
 router.post('/:id/deck/:deckID/remove', async (req, res) => {
-  const { id, deckID } = req.params;
-  const thisGame = GameController.findGame(id);
-  if (!thisGame) {
-    res.sendStatus(404);
-    return;
+  try {
+    const { id, deckID } = req.params;
+    const thisGame = GameController.findGame(id);
+    if (!thisGame) {
+      res.sendStatus(404);
+      return;
+    }
+    thisGame.removeDeck(deckID);
+    res.json({
+      status: 'success',
+    });
+  } catch (error) {
+    res.sendStatus(500);
   }
-  thisGame.removeDeck(deckID);
-  res.json({
-    status: 'success',
-  });
 });
 
 router.post('/:id/player/:playerName', (req, res) => {

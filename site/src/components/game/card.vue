@@ -1,6 +1,6 @@
 <template>
   <v-card
-    :class="{ 'game-card__playable' : playable }"
+    :class="{ 'game-card__playable' : playable || pickable }"
     class="mx-2 game-card"
     @dblclick.left="play">
     <v-card-text>
@@ -27,6 +27,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    pickable: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     text() {
@@ -35,14 +39,28 @@ export default {
   },
   methods: {
     ...mapMutations(['CARD_PLAYED', 'PLAYER_PLAYED_CARD']),
+    playerPlay() {
+      this.$socket.emit('play_card', {
+        playerID: this.playerID,
+        cardID: this.card.id,
+      });
+      this.CARD_PLAYED(this.card);
+      this.PLAYER_PLAYED_CARD({
+        playerID: this.playerID,
+        card: this.card,
+      });
+    },
+    czarPick() {
+      this.$socket.emit('czar_pick', {
+        playerID: this.playerID,
+        cardID: this.card.id,
+      });
+    },
     play() {
       if (this.playable) {
-        this.$socket.emit('play_card', {
-          playerID: this.playerID,
-          cardID: this.card.id,
-        });
-        this.CARD_PLAYED(this.card);
-        this.PLAYER_PLAYED_CARD(this.card);
+        this.playerPlay();
+      } else if (this.pickable) {
+        this.czarPick();
       }
     },
   },
