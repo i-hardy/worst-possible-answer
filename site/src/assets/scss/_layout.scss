@@ -54,6 +54,10 @@ body {
   justify-content: space-between; 
 }
 
+.flex-jaround {
+  justify-content: space-around; 
+}
+
 .band {
   display: flex;
   flex-direction: column;
@@ -79,4 +83,16 @@ body {
 
 hr.theme--dark {
   background: $root-text;
+}
+
+.unselectable {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+}
+
+.one-sixth {
+  width: 17%;
 }

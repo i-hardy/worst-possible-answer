@@ -1,31 +1,21 @@
 <template>
-  <section class="mx-auto py-4 two-thirds flex flex-acenter flex-jbetween">
-    <section>
-      <v-avatar
-        v-ripple
-        color="secondary"
-        size="32">
-        <v-icon
-          :data-clipboard-text="link"
-          @click="copy($event.target)">link</v-icon>
-      </v-avatar>
-    </section>
-    <section>
-      <v-avatar
-        v-ripple
-        color="secondary"
-        size="32">
-        <v-icon
-          :data-clipboard-text="code"
-          @click="copy($event.target)">code</v-icon>
-      </v-avatar>
-    </section>
+  <section class="mx-auto py-4 two-thirds flex flex-acenter flex-jaround">
+    <v-chip
+      class="primary-red shareable-chip"
+      disabled>
+      <v-icon left>code</v-icon>
+      {{ code }}
+    </v-chip>
+    <v-chip
+      class="primary-red shareable-chip"
+      disabled>
+      {{ link }}
+      <v-icon right>link</v-icon>
+    </v-chip>
   </section>
 </template>
 
 <script>
-import Clipboard from 'clipboard';
-
 export default {
   name: 'Shareables',
   props: {
@@ -42,16 +32,6 @@ export default {
     return {
       snackbar: false,
     };
-  },
-  methods: {
-    copy(node) {
-      console.log(node);
-      const clipboard = new Clipboard(node);
-      clipboard.on('success', () => {
-        this.snackbar = true;
-        clipboard.destroy();
-      });
-    },
   },
 };
 </script>

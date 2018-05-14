@@ -1,3 +1,5 @@
+import * as mutations from './mutations';
+
 const messaging = {
   state: {
     nudgeMessage: {
@@ -9,6 +11,7 @@ const messaging = {
       content: '',
     },
   },
+  mutations,
 };
 
 export { messaging as default };

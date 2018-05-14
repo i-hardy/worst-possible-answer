@@ -56,7 +56,7 @@ class Round {
   }
   nudgeIdlePlayers() {
     this.pendingPlayers().forEach((player) => {
-      player.notify('play a card');
+      player.notify('Time to play a card!');
     });
     this.nudged = true;
   }

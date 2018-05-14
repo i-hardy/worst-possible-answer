@@ -1,5 +1,5 @@
 <template>
-  <div class="ma-3 game-table">
+  <div class="ma-3 game-table unselectable">
     <v-card
       dark
       class="call-card">
@@ -12,7 +12,8 @@
       :key="index"
       :card="playedCard.card"
       :playerID="playedCard.playerID"
-      :pickable="getClientIsCzar" />
+      :pickable="getClientIsCzar"
+      :isWinner="isWinningCard(playedCard)" />
   </div>
 </template>
 
@@ -34,6 +35,11 @@ export default {
     ...mapGetters(['getClientIsCzar']),
     callCardText() {
       return this.callCard.text.join('___');
+    },
+  },
+  methods: {
+    isWinningCard(playedCard) {
+      return playedCard.playerId === this.roundWinner;
     },
   },
 };

@@ -4,11 +4,18 @@
     <section class="content content__with-sidebar">
       <router-view style="width:100%" />
     </section>
+    <v-snackbar
+      v-model="toastMessage.show"
+      :timeout="4000"
+      right>
+      {{ toastMessage.content }}
+    </v-snackbar>
   </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import Push from 'push.js';
 import Sidebar from '@/components/global/sidebar';
 
 export default {
@@ -27,7 +34,18 @@ export default {
     ...mapState({
       gameID: state => state.game.gameID,
       player: state => state.player,
+      toastMessage: state => state.messaging.toastMessage,
+      nudgeMessage: state => state.messaging.nudgeMessage,
     }),
+  },
+  watch: {
+    'nudgeMessage.show': {
+      handler(newVal) {
+        if (newVal) {
+          this.sendNudge();
+        }
+      },
+    },
   },
   mounted() {
     this.joinRoom();
@@ -39,6 +57,15 @@ export default {
         player: this.player,
       };
       this.$socket.emit('room', joinPacket);
+    },
+    sendNudge() {
+      Push.create(this.nudgeMessage.content, {
+        timeout: 4000,
+        onClick() {
+          window.focus();
+          this.close();
+        },
+      });
     },
   },
 };
@@ -62,6 +89,10 @@ export default {
 
 .two-thirds {
   width: 66%;
+}
+
+.snack__content {
+  background: $primary-red;
 }
 </style>
 

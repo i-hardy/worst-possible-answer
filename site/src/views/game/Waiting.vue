@@ -31,7 +31,7 @@ export default {
 @import '../../assets/scss/variables';
 
 .gif {
-  border: 1rem solid $primary-red;
+  border: $highlight-border solid $primary-red;
   border-radius: 7px;
   max-height: 400px;
 }

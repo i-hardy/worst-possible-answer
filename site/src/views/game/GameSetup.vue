@@ -1,9 +1,9 @@
 <template>
   <section>
     <h1 class="hero-text">Select your decks</h1>
-    <!-- <shareables
+    <shareables
       :link="'https://bit.ly/2KJMnBP'"
-      :code="gameID" /> -->
+      :code="gameID" />
     <section class="py-3">
       Enter deck IDs from <a href="https://www.cardcastgame.com/">Cardcast</a>.
     </section>

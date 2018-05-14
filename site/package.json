@@ -26,6 +26,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "clipboard": "^2.0.1",
+    "push.js": "^1.0.5",
     "socket.io-client": "^2.1.0",
     "vue": "^2.5.11",
     "vue-chat-scroll": "^1.2.1",

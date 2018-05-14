@@ -17,6 +17,8 @@ $dark-theme-base: $root-text;
 $light-theme-base: lighten($disabled, 10%);
 
 $background-grey: lighten($light-theme-base, 10%);
+
 // SIZING
 
 $sidebarwidth: 300px;
+$highlight-border: 0.5rem;

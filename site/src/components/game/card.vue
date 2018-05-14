@@ -1,6 +1,6 @@
 <template>
   <v-card
-    :class="{ 'game-card__playable' : playable || pickable }"
+    :class="{ 'game-card__playable' : playable || pickable, 'game-card__winning' : isWinner }"
     class="mx-2 game-card"
     @dblclick.left="play">
     <v-card-text>
@@ -28,6 +28,10 @@ export default {
       default: false,
     },
     pickable: {
+      type: Boolean,
+      default: false,
+    },
+    isWinner: {
       type: Boolean,
       default: false,
     },
@@ -68,6 +72,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../assets/scss/variables';
+
 .game-card {
   width: 100%;
   height: 90%;
@@ -75,6 +81,10 @@ export default {
   border-radius: 2px;
   &__playable {
     cursor: pointer;
+  }
+  &__winning {
+    border: 2px solid $primary-red;
+    border-radius: 2px;
   }
 }
 </style>
