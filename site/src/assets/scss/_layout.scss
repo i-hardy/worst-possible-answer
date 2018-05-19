@@ -65,12 +65,17 @@ body {
   align-items: center;
   &__section {
     padding: 2rem 0;
+    width: 100%;
   }
 }
 
 .button-wrapper {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  height: 6rem;
+  .dialog {
+    max-height: 500px;
+  }
 }
 
 .card {

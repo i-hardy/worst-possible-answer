@@ -11,12 +11,12 @@
 </template>
 
 <script>
-import slideLeft from '@/components/transitions/slideLeft';
+import SlideLeft from '@/components/transitions/slideLeft';
 
 export default {
   name: 'Index',
   components: {
-    slideLeft,
+    SlideLeft,
   },
   mounted() {
     this.$store.commit('CLEAR_GAME');

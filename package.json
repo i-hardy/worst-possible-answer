@@ -4,8 +4,12 @@
   "author": "Imogen Hardy <imogen.hardy@gmail.com>",
   "license": "MIT",
   "private": true,
+  "engines": {
+    "node": "10.0.0"
+  },
   "scripts": {
-    "start": "NODE_ENV=development nodemon ./server.js",
+    "dev": "NODE_ENV=development nodemon ./server.js",
+    "start": "NODE_ENV=production node ./server.js",
     "test": "mocha",
     "watch": "mocha --watch"
   },
