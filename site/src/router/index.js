@@ -1,6 +1,10 @@
 import VueRouter from 'vue-router';
-import LandingPage from '@/views/LandingPage.vue';
-import Game from '@/views/game/Game';
+import Index from '@/views/Index.vue';
+import LandingPage from '@/views/index/LandingPage';
+import About from '@/views/index/About';
+import Privacy from '@/views/index/Privacy';
+
+import Game from '@/views/Game';
 import GameSetup from '@/views/game/GameSetup.vue';
 import Gameplay from '@/views/game/Gameplay.vue';
 import Waiting from '@/views/game/Waiting.vue';
@@ -10,20 +14,29 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'landingPage',
-      component: LandingPage,
-    },
-    {
-      path: '/about',
-      name: 'about',
-    },
-    {
-      path: '/privacy',
-      name: 'privacy',
-    },
-    {
-      path: '/tutorial',
-      name: 'howToPlay',
+      name: 'index',
+      component: Index,
+      children: [
+        {
+          path: '',
+          name: 'landingPage',
+          component: LandingPage,
+        },
+        {
+          path: 'about',
+          name: 'about',
+          component: About,
+        },
+        {
+          path: 'privacy',
+          name: 'privacy',
+          component: Privacy,
+        },
+        {
+          path: 'tutorial',
+          name: 'howToPlay',
+        },
+      ],
     },
     {
       path: '/game/:gameId',

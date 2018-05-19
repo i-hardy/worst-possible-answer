@@ -39,7 +39,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import ChatMessage from '@/components/chat/chatMessage';
+import ChatMessage from '@/components/game/chat/chatMessage';
 
 export default {
   name: 'Chat',
@@ -73,7 +73,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../assets/scss/variables';
+@import '../../../assets/scss/variables';
 
 .chat-container {
   overflow: auto;

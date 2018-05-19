@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import PlayerIcon from '@/components/player/playerIcon';
+import PlayerIcon from '@/components/game/player/playerIcon';
 
 export default {
   name: 'ChatPlayerMessage',

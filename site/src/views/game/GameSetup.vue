@@ -51,8 +51,8 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 import http from '@/services/http';
-import Shareables from '@/components/admin/shareables';
-import DeckList from '@/components/admin/deckList';
+import Shareables from '@/components/game/admin/shareables';
+import DeckList from '@/components/game/admin/deckList';
 
 export default {
   name: 'GameSetup',

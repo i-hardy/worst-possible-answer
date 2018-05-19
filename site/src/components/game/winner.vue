@@ -23,7 +23,7 @@ export default {
     }),
     winnerIcon() {
       /* eslint-disable */
-      return require(`@/assets/images/playerIcons/${this.winner.icon}.svg`);
+      return require(`../../assets/images/playerIcons/${this.winner.icon}.svg`);
     },
   },
 };

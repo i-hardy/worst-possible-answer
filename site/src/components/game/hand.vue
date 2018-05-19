@@ -10,7 +10,7 @@
         v-for="(card, index) in hand"
         :key="index"
         :card="card"
-        :playerID="playerID" 
+        :playerID="playerID"
         playable />
     </div>
   </div>

@@ -43,14 +43,14 @@ export default {
     },
     icon() {
       /* eslint-disable */
-      return require(`@/assets/images/playerIcons/${this.player.icon}.svg`);
+      return require(`../../../assets/images/playerIcons/${this.player.icon}.svg`);
     },
   },
 };
 </script>
 
 <style lang="scss">
-@import '../../assets/scss/variables';
+@import '../../../assets/scss/variables';
 
 .icon__czar-badge {
   transform: rotate(-45deg);

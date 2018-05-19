@@ -16,7 +16,7 @@
 <script>
 import { mapState } from 'vuex';
 import Push from 'push.js';
-import Sidebar from '@/components/global/sidebar';
+import Sidebar from '@/components/game/global/sidebar';
 
 export default {
   name: 'Game',
@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../assets/scss/variables';
+@import '../assets/scss/variables';
 
 .content {
   height: 100%;

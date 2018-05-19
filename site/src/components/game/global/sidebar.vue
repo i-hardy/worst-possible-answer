@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import Chat from '@/components/chat/chat';
-import PlayerList from '@/components/global/playerList';
+import Chat from '@/components/game/chat/chat';
+import PlayerList from '@/components/game/global/playerList';
 
 export default {
   name: 'Sidebar',
@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../assets/scss/variables';
+@import '../../../assets/scss/variables';
 
 aside {
   position: absolute;

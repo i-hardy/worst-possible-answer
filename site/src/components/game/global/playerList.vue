@@ -25,7 +25,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import PlayerIcon from '@/components/player/playerIcon';
+import PlayerIcon from '@/components/game/player/playerIcon';
 
 export default {
   name: 'PlayerList',
@@ -40,7 +40,7 @@ export default {
   methods: {
     getIcon(name) {
       /* eslint-disable */
-      return require(`@/assets/images/playerIcons/${name}.svg`);
+      return require(`../../../assets/images/playerIcons/${name}.svg`);
     },
   }
 };

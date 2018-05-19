@@ -4,22 +4,19 @@
     <section class="band__section">
       A card-matching game for distant friends
     </section>
-    <section class="band__section button-wrapper">
-      <new-game-dialog />
-      <join-game-dialog />
-    </section>
+    <slide-left>
+      <router-view />
+    </slide-left>
   </section>
 </template>
 
 <script>
-import NewGameDialog from '@/components/dialogs/new-game-dialog';
-import JoinGameDialog from '@/components/dialogs/join-game-dialog';
+import slideLeft from '@/components/transitions/slideLeft';
 
 export default {
-  name: 'LandingPage',
+  name: 'Index',
   components: {
-    NewGameDialog,
-    JoinGameDialog,
+    slideLeft,
   },
   mounted() {
     this.$store.commit('CLEAR_GAME');

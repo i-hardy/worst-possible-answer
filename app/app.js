@@ -5,9 +5,7 @@ const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const sassMiddleware = require('node-sass-middleware');
 
-const indexRouter = require('./routes/index');
 const gameRouter = require('./routes/game');
 
 const app = express();
@@ -20,9 +18,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
+app.use(express.static(path.join(__dirname, '../public')));
 app.use('/games', gameRouter);
 
 // catch 404 and forward to error handler
