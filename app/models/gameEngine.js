@@ -1,4 +1,5 @@
 const Round = require('./round');
+const timings = require('./timings');
 
 class GameEngine {
   constructor(game, io, dealer, RoundClass = Round) {
@@ -25,7 +26,7 @@ class GameEngine {
       this.sendToPlayers(message, packet);
       setTimeout(
         this.subsequentRound.bind(this, cardsToDeal, playersToDealTo),
-        process.env.ROUND_GAP_TIMEOUT * 1000,
+        timings.gap * 1000,
       );
     } else {
       this.sendToPlayers('send_winner', { winner: this.winner().id });

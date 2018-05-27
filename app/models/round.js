@@ -1,5 +1,4 @@
-const firstTimeout = parseInt(process.env.ROUND_FIRST_TIMEOUT, 10);
-const secondTimeout = parseInt(process.env.ROUND_SECOND_TIMEOUT, 10);
+const timings = require('./timings');
 
 class Round {
   constructor(callCard, czar, players, doneFunction, sendFunction) {
@@ -31,7 +30,7 @@ class Round {
     return this.players
       .filter(player => !playedResponses.some(response => response.playerID === player.id));
   }
-  wait(pollTime = firstTimeout) {
+  wait(pollTime = timings.first) {
     this.pollInterval = setInterval(this
       .checkIsReady.bind(this, pollTime), 1000);
   }
@@ -49,7 +48,7 @@ class Round {
     if (!this.nudged) {
       this.nudgeIdlePlayers();
       this.pollCount = 0;
-      this.wait(secondTimeout);
+      this.wait(timings.second);
     } else {
       this.skipIdlePlayers();
     }
@@ -77,7 +76,7 @@ class Round {
   checkForCzar() {
     if (this.winningResponse) {
       this.roundHadWinner();
-    } else if (this.pollCount === firstTimeout) {
+    } else if (this.pollCount === timings.first) {
       this.czarTimedOut();
     }
     this.pollCount += 1;
