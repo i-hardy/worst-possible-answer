@@ -17,36 +17,32 @@ module.exports = (server) => {
 
   io.on('connection', (client) => {
     let thisGame;
-    let gameRoom;
+    let game;
 
-    client.on('room', ({ gameID, player }) => {
+    client.on('room', async ({ gameID, player }) => {
       thisGame = GameController.findGame(gameID);
-      gameRoom = io.sockets.in(gameID);
-      client.join(gameID);
+      game = gameID;
+      await client.join(gameID);
       if (!thisGame) return;
       newPlayer(thisGame, player, client);
     });
 
     client.on('game_start', () => {
-      console.log(thisGame.id);
-      console.log(gameRoom);
-      gameRoom.emit('startGame');
+      io.sockets.in(game).emit('startGame');
     });
 
     client.on('chat_message', ({ player, content }) => {
-      console.log(thisGame.id);
-      console.log(gameRoom);
-      gameRoom.emit('chat_message', JSON.stringify({ player, content }));
+      io.sockets.in(game).emit('chat_message', JSON.stringify({ player, content }));
     });
 
     client.on('deck_added', ({ deckName }) => {
       const content = `Deck added: ${deckName}`;
-      gameRoom.emit('chat_message', JSON.stringify({ content }));
+      io.sockets.in(game).emit('chat_message', JSON.stringify({ content }));
     });
 
     client.on('deck_removed', ({ deckName }) => {
       const content = `Deck removed: ${deckName}`;
-      gameRoom.emit('chat_message', JSON.stringify({ content }));
+      io.sockets.in(game).emit('chat_message', JSON.stringify({ content }));
     });
 
     client.on('play_card', ({ playerID, cardID }) => {
