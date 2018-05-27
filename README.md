@@ -11,7 +11,7 @@ In dev mode the server uses nodemon for hot reloading
 git clone
 cd worst-possible-answer
 npm install
-npm start
+npm run dev
 ```
 Game setup, including players joining and the game owner adding decks, is handled through REST endpoints under `/games`. Once the game is started, communication is handled through a socket.io room scoped with the game's unique ID.
 

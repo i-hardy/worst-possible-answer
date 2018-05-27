@@ -69,7 +69,7 @@ module.exports = (server) => {
         const disconnecter = thisGame.players.find(p => p.socket === socket);
         thisGame.removePlayer(disconnecter.id);
         const engine = GameController.findEngine(thisGame);
-        if (engine.activeRound) {
+        if (engine && engine.activeRound) {
           engine.activeRound.playerLeft(disconnecter.id);
         }
         updatePlayers(thisGame);
