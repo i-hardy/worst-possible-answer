@@ -2,7 +2,7 @@
   <v-card
     flat
     width="90%"
-    class="mx-auto mt-4">
+    class="mx-auto mt-4 vertical-scroll">
     <v-list
       dense>
       <template v-for="(player, index) in players">

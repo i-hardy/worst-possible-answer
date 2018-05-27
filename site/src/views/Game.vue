@@ -49,6 +49,7 @@ export default {
   },
   mounted() {
     this.joinRoom();
+    this.getPermissions();
   },
   methods: {
     joinRoom() {
@@ -57,6 +58,9 @@ export default {
         player: this.player,
       };
       this.$socket.emit('room', joinPacket);
+    },
+    getPermissions() {
+      Push.Permission.request();
     },
     sendNudge() {
       Push.create(this.nudgeMessage.content, {

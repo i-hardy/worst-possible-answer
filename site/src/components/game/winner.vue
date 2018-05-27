@@ -9,6 +9,12 @@
       :src="winnerIcon"
       :title="winner.icon"
       style="height:128px;">
+      <v-btn
+        :to="'/'"
+        color="primary"
+        block>
+        Another game?
+      </v-btn>
   </div>
 </template>
 

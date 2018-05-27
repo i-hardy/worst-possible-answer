@@ -9,7 +9,7 @@
     </p>
     <p>
       The game's sound cues are courtesy of <a target="_blank" href="https://notificationsounds.com/">NotificationSounds.com</a>. Player
-      icons are by <a target="_blank" href="https://www.flaticon.com/packs/animals-8">Freepik</a>
+      icons are by <a target="_blank" href="https://www.flaticon.com/packs/animals-8">Freepik</a>.
     </p>
   </section>
 </template>

@@ -4,7 +4,9 @@
     flat>
     <player-icon :player="message.player" />
     <v-list-tile-content>
-      <v-list-tile-title v-html="message.player.name" />
+      <v-list-tile-title
+        v-html="message.player.name"
+        class="bold-text" />
       <p v-html="message.content" />
     </v-list-tile-content>
   </v-card>
