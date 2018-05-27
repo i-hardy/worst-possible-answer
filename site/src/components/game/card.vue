@@ -1,8 +1,8 @@
 <template>
   <v-card
-    :class="{ 'game-card__playable' : playable || pickable, 'game-card__winning' : isWinner }"
+    :class="{ 'game-card__playable' : playable, 'game-card__selected' : selected }"
     class="mx-2 game-card"
-    @dblclick.left="play">
+    @click.native="select">
     <v-card-text>
       {{ text }}
     </v-card-text>
@@ -19,19 +19,11 @@ export default {
       type: Object,
       required: true,
     },
-    playerID: {
-      type: String,
-      required: true,
-    },
     playable: {
       type: Boolean,
       default: false,
     },
-    pickable: {
-      type: Boolean,
-      default: false,
-    },
-    isWinner: {
+    selected: {
       type: Boolean,
       default: false,
     },
@@ -42,31 +34,11 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['CARD_PLAYED', 'PLAYER_PLAYED_CARD']),
-    playerPlay() {
-      this.$socket.emit('play_card', {
-        playerID: this.playerID,
-        cardID: this.card.id,
-      });
-      this.CARD_PLAYED(this.card);
-      this.PLAYER_PLAYED_CARD({
-        playerID: this.playerID,
-        card: this.card,
-      });
-    },
-    czarPick() {
-      this.$socket.emit('czar_pick', {
-        playerID: this.playerID,
-        cardID: this.card.id,
-      });
-    },
-    play() {
+    select() {
       if (this.playable) {
-        this.playerPlay();
-      } else if (this.pickable) {
-        this.czarPick();
+        this.$emit('picked', this.card);
       }
-    },
+    }
   },
 };
 </script>
@@ -82,7 +54,7 @@ export default {
   &__playable {
     cursor: pointer;
   }
-  &__winning {
+  &__selected {
     border: 2px solid $primary-red;
     border-radius: 2px;
   }

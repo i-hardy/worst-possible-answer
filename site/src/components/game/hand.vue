@@ -2,22 +2,34 @@
   <div
     :class="{ 'hand__disabled' : disableHand }"
     class="hand unselectable pa-2">
-    <div class="hand-tip small-text">
-      {{ handTip }}
+    <div
+      v-if="ready"
+      class="hand-tip__button">
+      <v-btn
+        color="primary"
+        @click="playResponse">
+        Play selected cards
+      </v-btn>
+    </div>
+    <div
+      v-else
+      class="hand-tip small-text">
+        {{ handTip }}
     </div>
     <div class="cards-wrapper">
       <card
         v-for="(card, index) in hand"
         :key="index"
         :card="card"
-        :playerID="playerID"
-        playable />
+        :selected="selectedCards.includes(card)"
+        playable
+        @picked="pickCard"/>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters, mapMutations } from 'vuex';
 import Card from '@/components/game/card';
 
 export default {
@@ -25,20 +37,58 @@ export default {
   components: {
     Card,
   },
+  data() {
+    return {
+      selectedCards: [],
+    }
+  },
   computed: {
     ...mapState({
       hand: state => state.player.hand,
       playerID: state => state.player.id,
+      responseCount: state => state.game.round.responseCount,
     }),
     ...mapGetters(['getPlayerHasPlayed', 'getClientIsCzar']),
     disableHand() {
       return this.getClientIsCzar || this.getPlayerHasPlayed;
     },
     handTip() {
-      if (this.getClientIsCzar) return 'You are the card czar!';
-      return 'Double click to play a card';
+      if (this.getClientIsCzar) return 'You are the card czar! Double click to pick the winning response';
+      const plural = this.responseCount === 1 ? 'card' : 'cards';
+      return `Select ${this.responseCount} ${plural}`;
+    },
+    ready() {
+      return this.selectedCards.length === this.responseCount;
     }
   },
+  methods: {
+    ...mapMutations(['RESPONSE_PLAYED', 'PLAYER_PLAYED_RESPONSE']),
+    pickCard(card) {
+      if (this.selectedCards.includes(card)) {
+        this.selectedCards = this.selectedCards.filter(c => c !== card);
+      } else {
+        this.selectedCards.push(card);
+      }
+    },
+    playResponse() {
+      this.$socket.emit('play_card', {
+        playerID: this.playerID,
+        cards: this.selectedCards,
+      });
+      this.PLAYER_PLAYED_RESPONSE({
+        playerID: this.playerID,
+        cards: this.selectedCards,
+      });
+      this.selectedCards.forEach(card => {
+        this.RESPONSE_PLAYED(card);
+      });
+    },
+  },
+  watch: {
+    hand() {
+      this.selectedCards = [];
+    }
+  }
 };
 </script>
 
@@ -48,6 +98,13 @@ export default {
 .hand-tip {
   position: absolute;
   top: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hand-tip__button {
+  position: absolute;
+  top: -4rem;
   left: 50%;
   transform: translateX(-50%);
 }

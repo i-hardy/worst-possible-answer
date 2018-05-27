@@ -18,8 +18,10 @@ export const SOCKET_UPDATE_PLAYERS = (state, payload) => {
   state.players = players;
 };
 
-export const SOCKET_SET_CALL_CARD = (state, callCard) => {
-  state.round.callCard = JSON.parse(callCard);
+export const SOCKET_SET_CALL_CARD = (state, payload) => {
+  const { callCard, responseCount } = JSON.parse(payload);
+  state.round.callCard = callCard;
+  state.round.responseCount = responseCount;
   state.round.cardsPlayed = [];
   state.round.isEnded = false;
   state.round.winner = null;
@@ -53,6 +55,6 @@ export const SOCKET_SEND_NEW_ROUND = (state, payload) => {
   state.round.isEnded = true;
 };
 
-export const PLAYER_PLAYED_CARD = (state, playedCard) => {
-  state.round.cardsPlayed.push(playedCard);
+export const PLAYER_PLAYED_RESPONSE = (state, response) => {
+  state.round.cardsPlayed.push(response);
 };

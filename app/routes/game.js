@@ -57,11 +57,13 @@ router.post('/:id/deck/:deckID/remove', async (req, res) => {
 router.post('/:id/player/:playerName', (req, res) => {
   const { id, playerName } = req.params;
   const { name, icon, playerID } = GameController.addPlayerToGame(id, playerName);
+  const thisGame = GameController.findGame(id);
   res.json({
     status: 'success',
     name,
     icon,
     playerID,
+    isRunning: thisGame.isRunning,
   });
 });
 

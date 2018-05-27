@@ -11,7 +11,8 @@
     "dev": "NODE_ENV=development nodemon ./server.js",
     "start": "NODE_ENV=production node ./server.js",
     "test": "mocha",
-    "watch": "mocha --watch"
+    "watch": "mocha --watch",
+    "heroku-postbuild": "cd site && npm install && npm run build"
   },
   "dependencies": {
     "cardcast": "0.0.1",

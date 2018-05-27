@@ -7,24 +7,22 @@
         {{ callCardText }}
       </v-card-text>
     </v-card>
-    <card
-      v-for="(playedCard, index) in cardsPlayed"
+    <response
+      v-for="(response, index) in cardsPlayed"
       :key="index"
-      :card="playedCard.card"
-      :playerID="playedCard.playerID"
-      :pickable="canBePicked"
-      :isWinner="isWinningCard(playedCard)" />
+      :response="response"
+      :pickable="getClientIsCzar" />
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import Card from '@/components/game/card';
+import Response from '@/components/game/response';
 
 export default {
   name: 'CardTable',
   components: {
-    Card,
+    Response,
   },
   computed: {
     ...mapState({

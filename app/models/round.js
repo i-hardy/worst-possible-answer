@@ -9,12 +9,20 @@ class Round {
       doneFunction,
       sendFunction,
     });
+    // Players who join during a round will not be counted until the next round
+    this.roundPlayers = [].concat(players);
     this.playedResponses = [];
     this.pollCount = 0;
     this.nudged = false;
   }
+  playerLeft(id) {
+    this.players = this.players.filter(player => player.id !== id);
+  }
   nonCzarPlayers() {
-    return this.players.filter(player => player.id !== this.czar.id);
+    return this.roundPlayers.filter(player => player.id !== this.czar.id);
+  }
+  roundJoiners() {
+    return this.players.filter(player => !this.roundPlayers.includes(player));
   }
   cardsPerResponse() {
     return this.callCard.text.length - 1;
@@ -27,7 +35,7 @@ class Round {
   }
   pendingPlayers() {
     const { playedResponses } = this;
-    return this.players
+    return this.nonCzarPlayers()
       .filter(player => !playedResponses.some(response => response.playerID === player.id));
   }
   wait(pollTime = timings.first) {
@@ -87,7 +95,7 @@ class Round {
   }
   roundHadWinner() {
     clearInterval(this.czarInterval);
-    const winner = this.players
+    const winner = this.roundPlayers
       .find(player => player.id === this.winningResponse.playerID);
     winner.addPoint();
     this.sendRoundEnd({ winner: winner.id });
@@ -103,6 +111,7 @@ class Round {
       packet,
       this.cardsPerResponse(),
       this.playersWhoPlayed(),
+      this.roundJoiners(),
     );
   }
 }

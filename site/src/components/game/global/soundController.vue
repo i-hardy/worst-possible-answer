@@ -20,7 +20,7 @@ export default {
   name: 'SoundController',
   data() {
     return {
-      soundEnabled: true,
+      soundEnabled: false,
       unlisten: () => {},
     };
   },
@@ -30,9 +30,6 @@ export default {
       const status = this.soundEnabled ? 'ON' : 'OFF';
       return `Audio: ${status}`;
     },
-  },
-  mounted() {
-    this.setListener();
   },
   methods: {
     playSoundAsset(asset) {

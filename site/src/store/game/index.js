@@ -10,6 +10,7 @@ const game = {
       czar: '',
       callCard: {},
       cardsPlayed: [],
+      responseCount: 0,
       isEnded: false,
       winner: null,
     },

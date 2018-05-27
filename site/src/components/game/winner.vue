@@ -9,7 +9,7 @@
       :src="winnerIcon"
       :title="winner.icon"
       style="height:128px;">
-      <div class="one-third">
+      <div class="mx-auto pt-5 one-third">
         <v-btn
           :to="'/'"
           color="primary"

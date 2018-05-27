@@ -5,61 +5,74 @@ module.exports = (server) => {
   const io = socketio(server);
   GameController.receiveIo(io);
 
-  function newPlayer(game, player, socket) {
-    const gamePlayer = game.players.find(p => p.id === player.id);
-    if (!gamePlayer.socket) {
-      io.sockets.in(game.id).emit('update_players', JSON.stringify({
-        players: game.sanitizedPlayers(),
-      }));
-    }
-    gamePlayer.receiveSocket(socket);
-  }
-
   function gameSockets(id) {
     return io.sockets.in(id);
   }
 
-  io.on('connection', (client) => {
+  function updatePlayers(game) {
+    gameSockets(game.id).emit('update_players', JSON.stringify({
+      players: game.sanitizedPlayers(),
+    }));
+  }
+
+  function newPlayer(game, player, socket) {
+    const gamePlayer = game.players.find(p => p.id === player.id);
+    updatePlayers(game);
+    gamePlayer.receiveSocket(socket);
+  }
+
+  io.on('connection', (socket) => {
     let thisGame;
     let game;
 
-    client.on('room', async ({ gameID, player }) => {
+    socket.on('room', async ({ gameID, player }) => {
       thisGame = GameController.findGame(gameID);
       game = gameID;
-      await client.join(gameID);
+      await socket.join(gameID);
       if (!thisGame) return;
-      newPlayer(thisGame, player, client);
+      newPlayer(thisGame, player, socket);
     });
 
-    client.on('game_start', () => {
+    socket.on('game_start', () => {
       gameSockets(game).emit('startGame');
     });
 
-    client.on('chat_message', ({ player, content }) => {
+    socket.on('chat_message', ({ player, content }) => {
       gameSockets(game).emit('chat_message', JSON.stringify({ player, content }));
     });
 
-    client.on('deck_added', ({ deckName }) => {
+    socket.on('deck_added', ({ deckName }) => {
       const content = `Deck added: ${deckName}`;
       gameSockets(game).emit('chat_message', JSON.stringify({ content }));
     });
 
-    client.on('deck_removed', ({ deckName }) => {
+    socket.on('deck_removed', ({ deckName }) => {
       const content = `Deck removed: ${deckName}`;
       gameSockets(game).emit('chat_message', JSON.stringify({ content }));
     });
 
-    client.on('play_card', ({ playerID, cardID }) => {
-      const card = thisGame.allResponses().find(c => c.id === cardID);
+    socket.on('play_card', ({ playerID, cards }) => {
+      const gamePlayer = thisGame.players.find(p => p.id === playerID);
+      gamePlayer.play(cards);
       const { activeRound } = GameController.findEngine(thisGame);
-      activeRound.playResponse({ playerID, card });
+      activeRound.playResponse({ playerID, cards });
     });
 
-    client.on('czar_pick', ({ playerID, cardID }) => {
-      const gamePlayer = thisGame.players.find(p => p.id === playerID);
-      const card = gamePlayer.play(cardID);
+    socket.on('czar_pick', ({ playerID }) => {
       const { activeRound } = GameController.findEngine(thisGame);
-      activeRound.czarPick({ playerID, card });
+      activeRound.czarPick({ playerID });
+    });
+
+    socket.on('disconnect', () => {
+      if (thisGame) {
+        const disconnecter = thisGame.players.find(p => p.socket === socket);
+        thisGame.removePlayer(disconnecter.id);
+        const engine = GameController.findEngine(thisGame);
+        if (engine.activeRound) {
+          engine.activeRound.playerLeft(disconnecter.id);
+        }
+        updatePlayers(thisGame);
+      }
     });
   });
 };

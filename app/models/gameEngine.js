@@ -19,9 +19,10 @@ class GameEngine {
     return this.game.players
       .find(player => player.points === parseInt(this.game.winCondition, 10));
   }
-  notifyRoundOver(message, packet, cardsToDeal, playersToDealTo) {
+  notifyRoundOver(message, packet, cardsToDeal, playersToDealTo, joiners) {
     this.activeRound = null;
     this.sendToPlayers('update_players', { players: this.game.sanitizedPlayers() });
+    this._dealCards(5, joiners);
     if (!this.winner()) {
       this.sendToPlayers(message, packet);
       setTimeout(
@@ -66,7 +67,10 @@ class GameEngine {
       this.notifyRoundOver.bind(this),
       this.sendToPlayers.bind(this),
     );
-    this.sendToPlayers('set_call_card', call);
+    this.sendToPlayers('set_call_card', {
+      callCard: call,
+      responseCount: this.activeRound.cardsPerResponse(),
+    });
     this.rounds.push(this.activeRound);
   }
   _passCardsToDealer() {

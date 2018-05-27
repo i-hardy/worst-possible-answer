@@ -15,6 +15,6 @@ export const SOCKET_SEND_HAND = (state, payload) => {
   state.hand = hand;
 };
 
-export const CARD_PLAYED = (state, playedCard) => {
+export const RESPONSE_PLAYED = (state, playedCard) => {
   state.hand = state.hand.filter(card => card.id !== playedCard.id);
 };

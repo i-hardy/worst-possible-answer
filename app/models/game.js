@@ -1,8 +1,10 @@
 class Game {
   constructor(id) {
     this.id = id;
+    this.isRunning = false;
     this.decks = [];
     this.players = [];
+    this.chat = [];
   }
   addDeck(deck) {
     if (this.decks.some(currDeck => currDeck.code === deck.code)) {

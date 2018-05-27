@@ -21,11 +21,12 @@ class Player {
     const payload = JSON.stringify({ hand: this.hand });
     this.socket.emit('send_hand', payload);
   }
-  play(cardID) {
-    const card = this.hand.find(c => c.id === cardID);
-    this.hand.splice(this.hand.indexOf(card), 1);
+  play(cards) {
+    cards.forEach((crd) => {
+      const card = this.hand.find(c => c.id === crd.id);
+      this.hand.splice(this.hand.indexOf(card), 1);
+    });
     this.sendHand();
-    return card;
   }
   deal(card) {
     this.hand.push(card);

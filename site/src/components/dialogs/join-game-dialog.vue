@@ -51,7 +51,7 @@ export default {
     async joinGame() {
       if (this.valid) {
         const response = await http.post(`/${this.gameCode}/player/${this.playerName}`);
-        const { name, icon, playerID } = response.data;
+        const { name, icon, playerID, isRunning } = response.data;
         const player = {
           playerID,
           name,
@@ -61,7 +61,7 @@ export default {
         this.$store.commit('SET_GAME_ID', this.gameCode);
         this.$store.commit('SET_PLAYER', player);
         this.$router.push({
-          name: 'waiting',
+          name: isRunning ? 'play' : 'waiting',
           params: {
             gameId: this.gameCode,
           },
