@@ -61,7 +61,11 @@ const GameController = {
     const engine = new GameEngine(game, this.io, dealer);
     this.gameEngines.push(engine);
     game.run();
-    engine.firstRound();
+    try {
+      engine.firstRound();
+    } catch (error) {
+      engine.stop();
+    }
   },
 };
 

@@ -1,3 +1,4 @@
+const moment = require('moment');
 const Round = require('./round');
 const timings = require('./timings');
 
@@ -11,9 +12,18 @@ class GameEngine {
     });
     this.gameRoom = io.sockets.in(this.game.id);
     this.rounds = [];
+    this.lastActive = moment();
   }
   sendToPlayers(messageName, packet) {
     this.gameRoom.emit(messageName, JSON.stringify(packet));
+  }
+  stop() {
+    this.activeRound = null;
+  }
+  markLastActiveRound(activePlayers) {
+    if (activePlayers.length) {
+      this.lastActive = moment();
+    }
   }
   winner() {
     return this.game.players
@@ -23,6 +33,10 @@ class GameEngine {
     this.activeRound = null;
     this.sendToPlayers('update_players', { players: this.game.sanitizedPlayers() });
     this._dealCards(5, joiners);
+    this.markLastActiveRound(playersToDealTo);
+    this.checkForWinner(message, packet, cardsToDeal, playersToDealTo);
+  }
+  checkForWinner(message, packet, cardsToDeal, playersToDealTo) {
     if (!this.winner()) {
       this.sendToPlayers(message, packet);
       setTimeout(

@@ -1,23 +1,15 @@
+/* eslint no-console: 0, prefer-template: 0 */
+
 const debug = require('debug')('cah-clone:server');
 const http = require('http');
 const app = require('./app/app');
-const port = normalizePort(process.env.PORT || '3000');
-const GameController = require('./app/models/gameController');
-
-app.set('port', port);
 
 const server = http.createServer(app);
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-const io = require('./app/sockets')(server);
-
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  const port = parseInt(val, 10);
 
-  if (isNaN(port)) {
+  if (Number.isNaN(port)) {
     // named pipe
     return val;
   }
@@ -30,12 +22,14 @@ function normalizePort(val) {
   return false;
 }
 
+const port = normalizePort(process.env.PORT || '3000');
+
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
-  var bind = typeof port === 'string'
+  const bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
 
@@ -55,9 +49,17 @@ function onError(error) {
 }
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
+  const addr = server.address();
+  const bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+app.set('port', port);
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+require('./app/sockets')(server);
