@@ -11,7 +11,8 @@
       v-for="(response, index) in cardsPlayed"
       :key="index"
       :response="response"
-      :pickable="getClientIsCzar" />
+      :pickable="getClientIsCzar"
+      :winner="isWinningResponse(response)" />
   </div>
 </template>
 
@@ -40,8 +41,8 @@ export default {
     },
   },
   methods: {
-    isWinningCard(playedCard) {
-      return playedCard.playerId === this.roundWinner;
+    isWinningResponse(res) {
+      return res.playerId === this.roundWinner;
     },
   },
 };

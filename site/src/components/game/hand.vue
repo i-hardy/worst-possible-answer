@@ -7,8 +7,8 @@
       class="hand-tip__button">
       <v-btn
         color="primary"
-        @click="playResponse">
-        Play selected cards
+        @click="buttonClick">
+        {{ buttonText }}
       </v-btn>
     </div>
     <div
@@ -47,15 +47,21 @@ export default {
       hand: state => state.player.hand,
       playerID: state => state.player.id,
       responseCount: state => state.game.round.responseCount,
+      czarPick: state => state.game.round.czarPick,
     }),
     ...mapGetters(['getPlayerHasPlayed', 'getClientIsCzar']),
     disableHand() {
       return this.getClientIsCzar || this.getPlayerHasPlayed;
     },
     handTip() {
-      if (this.getClientIsCzar) return 'You are the card czar! Double click to pick the winning response';
+      if (this.getClientIsCzar) return 'You are the card czar! Select the winning response';
       const plural = this.responseCount === 1 ? 'card' : 'cards';
       return `Select ${this.responseCount} ${plural}`;
+    },
+    buttonText() {
+      const plural = this.responseCount === 1 ? 'card' : 'cards';
+      if (this.getClientIsCzar) return `Pick selected ${plural}`;
+      return `Play selected ${plural}`;
     },
     ready() {
       return this.selectedCards.length === this.responseCount;
@@ -63,7 +69,13 @@ export default {
   },
   methods: {
     ...mapMutations(['RESPONSE_PLAYED', 'PLAYER_PLAYED_RESPONSE']),
+    preventOverflow() {
+      if (this.ready) {
+        this.selectedCards.shift();
+      }
+    },
     pickCard(card) {
+      this.preventOverflow();
       if (this.selectedCards.includes(card)) {
         this.selectedCards = this.selectedCards.filter(c => c !== card);
       } else {
@@ -82,6 +94,18 @@ export default {
       this.selectedCards.forEach(card => {
         this.RESPONSE_PLAYED(card);
       });
+    },
+    sendCzarPick() {
+      this.$socket.emit('czar_pick', {
+        playerID: this.czarPick.playerID,
+      });
+    },
+    buttonClick() {
+      if (this.getClientIsCzar && this.czarPick) {
+        this.sendCzarPick();
+      } else {
+        this.playResponse();
+      }
     },
   },
   watch: {

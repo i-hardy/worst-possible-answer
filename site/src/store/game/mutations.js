@@ -5,8 +5,25 @@ export const SET_GAME_ID = (state, id) => {
 };
 
 export const CLEAR_GAME = (state) => {
-  state.players = [];
-  state.chat = [];
+  state = {
+    gameID: '',
+    players: [],
+    chat: [],
+    round: {
+      czar: '',
+      czarPick: null,
+      callCard: {},
+      cardsPlayed: [],
+      responseCount: 0,
+      isEnded: false,
+      winner: null,
+    },
+    winner: null,
+  }
+};
+
+export const SET_CZAR_PICK = (state, response) => {
+  state.round.czarPick = response;
 };
 
 export const SOCKET_CHAT_MESSAGE = (state, message) => {
@@ -20,11 +37,14 @@ export const SOCKET_UPDATE_PLAYERS = (state, payload) => {
 
 export const SOCKET_SET_CALL_CARD = (state, payload) => {
   const { callCard, responseCount } = JSON.parse(payload);
-  state.round.callCard = callCard;
-  state.round.responseCount = responseCount;
-  state.round.cardsPlayed = [];
-  state.round.isEnded = false;
-  state.round.winner = null;
+  Object.assign(state.round, {
+    czarPick: null,
+    callCard,
+    cardsPlayed: [],
+    responseCount,
+    isEnded: false,
+    winner: null,
+  });
 };
 
 export const SOCKET_SET_CZAR = (state, czarId) => {

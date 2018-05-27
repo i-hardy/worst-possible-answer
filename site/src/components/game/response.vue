@@ -1,8 +1,8 @@
 <template>
   <section
-    :class="{ 'response--pickable' : pickable }"
+    :class="{ 'response--pickable' : pickable, 'response--winner' : isWinner }"
     class="response"
-    @dblclick="czarPick">
+    @click="czarPick">
     <card
       v-for="(card, index) in response.cards"
       :key="index"
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import Card from '@/components/game/card';
 
 export default {
@@ -27,17 +28,20 @@ export default {
     pickable: {
       type: Boolean,
       default: false,
+    },
+    isWinner: {
+      type: Boolean,
+      default: false,
     }
   },
   methods: {
+    ...mapMutations(['SET_CZAR_PICK']),
     czarPick() {
       if (this.pickable) {
-        this.$socket.emit('czar_pick', {
-          playerID: this.response.playerID,
-        });
+        this.SET_CZAR_PICK(this.response);
       }
     },
-  }
+  },
 };
 </script>
 
@@ -59,6 +63,9 @@ export default {
   &--pickable {
     cursor: pointer;
     pointer-events: all;
+  }
+  &--winner {
+    border-color: $primary-red;
   }
 }
 </style>

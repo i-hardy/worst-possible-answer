@@ -8,6 +8,7 @@ const game = {
     chat: [],
     round: {
       czar: '',
+      czarPick: null,
       callCard: {},
       cardsPlayed: [],
       responseCount: 0,
