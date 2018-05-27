@@ -64,6 +64,7 @@ export default {
       return `Play selected ${plural}`;
     },
     ready() {
+      if (this.getClientIsCzar) return !!this.czarPick;
       return this.selectedCards.length === this.responseCount;
     }
   },
