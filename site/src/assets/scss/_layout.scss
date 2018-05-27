@@ -58,8 +58,13 @@ body {
   justify-content: space-around; 
 }
 
+.vertical-scroll {
+  overflow-y: scroll !important;
+}
+
 .band {
   display: flex;
+  flex-basis: fit-content;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -100,4 +105,16 @@ hr.theme--dark {
 
 .one-sixth {
   width: 17%;
+}
+
+.one-third {
+  width: 33%;
+}
+
+.two-thirds {
+  width: 66%;
+}
+
+.pb-2 {
+  padding-bottom: 2rem;
 }

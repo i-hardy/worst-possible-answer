@@ -3,6 +3,7 @@ import Index from '@/views/Index.vue';
 import LandingPage from '@/views/index/LandingPage';
 import About from '@/views/index/About';
 import Privacy from '@/views/index/Privacy';
+import Tutorial from '@/views/index/Tutorial';
 
 import Game from '@/views/Game';
 import GameSetup from '@/views/game/GameSetup.vue';
@@ -35,6 +36,7 @@ const router = new VueRouter({
         {
           path: 'tutorial',
           name: 'howToPlay',
+          component: Tutorial,
         },
       ],
     },

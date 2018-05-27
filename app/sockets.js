@@ -52,7 +52,8 @@ module.exports = (server) => {
     });
 
     socket.on('czar_pick', ({ playerID, cardID }) => {
-      const card = thisGame.allResponses().find(c => c.id === cardID);
+      const gamePlayer = thisGame.players.find(p => p.id === playerID);
+      const card = gamePlayer.play(cardID);
       const { activeRound } = GameController.findEngine(thisGame);
       activeRound.czarPick({ playerID, card });
     });

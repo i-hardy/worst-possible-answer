@@ -1,9 +1,9 @@
 <template>
   <div
     :class="{ 'hand__disabled' : disableHand }"
-    class="hand pa-2">
+    class="hand unselectable pa-2">
     <div class="hand-tip small-text">
-      Double click to play a card
+      {{ handTip }}
     </div>
     <div class="cards-wrapper">
       <card
@@ -34,6 +34,10 @@ export default {
     disableHand() {
       return this.getClientIsCzar || this.getPlayerHasPlayed;
     },
+    handTip() {
+      if (this.getClientIsCzar) return 'You are the card czar!';
+      return 'Double click to play a card';
+    }
   },
 };
 </script>
@@ -55,9 +59,14 @@ export default {
   width: calc(100% - #{$sidebarwidth});
   background: $background-grey;
   box-shadow: 0 -2px 1px -1px rgba(0,0,0,.2);
-  &__disabled {
+  &__disabled .cards-wrapper {
     opacity: 0.5;
     pointer-events: none;
+  }
+  &__czar-message {
+    position: absolute;
+    z-index: 99999;
+    opacity: 1;
   }
 }
 .cards-wrapper {

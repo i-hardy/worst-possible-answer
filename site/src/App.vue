@@ -2,6 +2,7 @@
   <div
     id="app"
     class="full-height">
+    <v-app>
     <router-view />
     <v-footer
       v-if="showFooter"
@@ -31,6 +32,7 @@
         </div>
       </div>
     </v-footer>
+    </v-app>
   </div>
 </template>
 
@@ -42,6 +44,10 @@ export default {
     return {
       breadcrumbs: [
         {
+          routeName: '/',
+          text: 'Home',
+        },
+        {
           routeName: 'about',
           text: 'About',
         },
@@ -52,7 +58,7 @@ export default {
         {
           routeName: 'tutorial',
           text: 'How to Play',
-        },
+        }
       ],
     };
   },
@@ -67,6 +73,15 @@ export default {
 <style lang="scss">
 @import './assets/scss/imports';
 
+#app {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+}
+
 .footer-content {
   width: 100%;
   font-size: 0.9rem;
@@ -75,8 +90,10 @@ export default {
   justify-content: center;
 }
 
+.breadcrumbs__item--disabled,
 .breadcrumbs li:last-child a {
-  cursor: pointer;
-  pointer-events: all;
+  cursor: pointer !important;
+  pointer-events: all !important;
+  color: $primary-red !important;
 }
 </style>

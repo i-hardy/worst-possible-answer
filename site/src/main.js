@@ -11,9 +11,18 @@ import router from './router';
 import store from './store';
 import App from './App.vue';
 
+const socketPoint = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : '/';
+
 Vue.use(VueRouter);
-Vue.use(Vuetify);
-Vue.use(VueSocketio, io('http://localhost:3000'), store);
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#CB1818',
+    secondary: '#54BAC3',
+    accent: '#8c9eff',
+    error: '#b71c1c'
+  }
+});
+Vue.use(VueSocketio, io(socketPoint), store);
 Vue.use(VueChatScroll);
 
 (() =>

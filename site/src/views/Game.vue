@@ -2,7 +2,7 @@
   <section class="full-height">
     <sidebar />
     <section class="content content__with-sidebar">
-      <router-view style="width:100%" />
+      <router-view style="width:100%;" />
     </section>
     <v-snackbar
       v-model="toastMessage.show"
@@ -81,14 +81,6 @@ export default {
     margin-left: $sidebarwidth;
     width: calc(100% - #{$sidebarwidth});
   }
-}
-
-.one-third {
-  width: 33%;
-}
-
-.two-thirds {
-  width: 66%;
 }
 
 .snack__content {

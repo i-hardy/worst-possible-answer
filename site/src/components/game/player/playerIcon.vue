@@ -1,6 +1,7 @@
 <template>
   <v-list-tile-avatar :tile="true">
     <v-badge
+      color=""
       overlap
       left>
       <span

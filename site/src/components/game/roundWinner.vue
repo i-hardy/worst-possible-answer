@@ -1,9 +1,13 @@
 <template>
   <div class="round-winner">
-    <div v-if="getRoundWinner">
-      {{ getRoundWinner.name }} wins the round!
-    </div>
-    Next round begins in {{ countdown }} seconds
+    <v-card class="primary-red">
+      <v-card-text>
+        <div v-if="getRoundWinner">
+          {{ getRoundWinner.name }} wins the round!
+        </div>
+        Next round begins in {{ countdown }} seconds
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
@@ -32,16 +36,26 @@ export default {
   },
   methods: {
     countDown() {
-      this.countdown -= 1;
+      if (this.countdown > 0) {
+        this.countdown -= 1;
+      }
     },
   },
 };
 </script>
 
 <style lang="scss">
+@import '../../assets/scss/variables';
+@import '../../assets/scss/animations';
+
 .round-winner {
   position: absolute;
+  bottom: 250px;
   left: 50%;
-  transform: translateX(-50%);
+  margin-left: $sidebarwidth;
+  &:hover {
+    animation: wiggle 0.2s ease;
+    animation-iteration-count: 2;
+  }
 }
 </style>

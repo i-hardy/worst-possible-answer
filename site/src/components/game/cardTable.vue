@@ -12,7 +12,7 @@
       :key="index"
       :card="playedCard.card"
       :playerID="playedCard.playerID"
-      :pickable="getClientIsCzar"
+      :pickable="canBePicked"
       :isWinner="isWinningCard(playedCard)" />
   </div>
 </template>
@@ -31,10 +31,14 @@ export default {
       callCard: state => state.game.round.callCard,
       cardsPlayed: state => state.game.round.cardsPlayed,
       roundWinner: state => state.game.round.winner,
+      isEnded: state => state.game.round.isEnded,
     }),
     ...mapGetters(['getClientIsCzar']),
     callCardText() {
       return this.callCard.text.join('___');
+    },
+    canBePicked() {
+      return this.getClientIsCzar && !this.isEnded;
     },
   },
   methods: {

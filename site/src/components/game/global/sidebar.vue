@@ -3,6 +3,7 @@
     <h1 class="white-text">Worst Possible Answer</h1>
     <section class="aside--section_two-thirds">
       <chat />
+      <sound-controller />
       <player-list />
     </section>
   </aside>
@@ -11,12 +12,14 @@
 <script>
 import Chat from '@/components/game/chat/chat';
 import PlayerList from '@/components/game/global/playerList';
+import SoundController from '@/components/game/global/soundController';
 
 export default {
   name: 'Sidebar',
   components: {
     Chat,
     PlayerList,
+    SoundController,
   },
 };
 </script>

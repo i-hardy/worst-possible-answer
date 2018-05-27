@@ -11,7 +11,8 @@
 }
 
 .primary-red--text {
-  color: $primary-red;
+  color: $primary-red !important;
+  border-color: $primary-red;
 }
 
 .secondary {
@@ -29,6 +30,7 @@
 
 .dark {
   background-color: $dark-teal;
+  color: $white;
 }
 
 .theme--dark {

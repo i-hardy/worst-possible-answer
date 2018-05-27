@@ -3,14 +3,17 @@
     <div class="game-view">
       <winner v-if="winner" />
       <card-table v-else />
-      <round-winner v-if="roundEnded" />
+      <pop-up>
+        <round-winner v-if="roundEnded" />
+      </pop-up>
     </div>
-    <hand />
+    <hand v-if="!winner" />
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import PopUp from '@/components/transitions/popUp';
 import Hand from '@/components/game/hand';
 import CardTable from '@/components/game/cardTable';
 import RoundWinner from '@/components/game/roundWinner';
@@ -19,6 +22,7 @@ import Winner from '@/components/game/winner';
 export default {
   name: 'Gameplay',
   components: {
+    PopUp,
     Hand,
     CardTable,
     RoundWinner,
@@ -33,7 +37,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-
-</style>

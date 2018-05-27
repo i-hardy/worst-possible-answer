@@ -1,7 +1,7 @@
 @import './variables';
 
 #app {
-  font-family: 'Loto', Helvetica, Arial, sans-serif;
+  font-family: 'Loto', Helvetica, Arial, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -12,6 +12,10 @@
 h1, h2 {
   font-family: 'Gloria Hallelujah', sans-serif;
   font-weight: normal;
+}
+
+h2 {
+  margin-bottom: 1rem;
 }
 
 a {

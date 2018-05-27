@@ -1,11 +1,11 @@
 <template>
-  <section>
+  <section class="vertical-scroll">
     <h1 class="hero-text">Select your decks</h1>
     <shareables
       :link="'https://bit.ly/2KJMnBP'"
       :code="gameID" />
     <section class="py-3">
-      Enter deck IDs from <a href="https://www.cardcastgame.com/">Cardcast</a>.
+      Enter deck IDs from <a target="_blank" href="https://www.cardcastgame.com/">Cardcast</a>.
     </section>
     <section class="mx-auto one-third">
       <v-form
@@ -30,6 +30,7 @@
       </v-form>
     </section>
     <deck-list
+      v-if="decks.length"
       :decks="decks"
       @remove-deck="removeDeck" />
     <section class="mx-auto one-third">
@@ -71,9 +72,11 @@ export default {
   computed: {
     ...mapState({
       gameID: state => state.game.gameID,
+      players: state => state.game.players,
     }),
     gameReady() {
-      return this.decks.length && !!this.winCondition;
+      const hasFriends = this.players.length > 1;
+      return this.decks.length && !!this.winCondition && hasFriends;
     },
   },
   methods: {
