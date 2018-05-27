@@ -3,7 +3,7 @@
     :class="{
       'response--pickable' : pickable,
       'response--winner' : isWinner,
-      'response--not-winner' : !isWinner,
+      'response--not-winner' : roundWinner && !isWinner,
       }"
     class="response"
     @click="czarPick">
