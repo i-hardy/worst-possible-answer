@@ -11,8 +11,7 @@
       v-for="(response, index) in cardsPlayed"
       :key="index"
       :response="response"
-      :pickable="getClientIsCzar"
-      :winner="isWinningResponse(response)" />
+      :pickable="getClientIsCzar && !isEnded" />
   </div>
 </template>
 
@@ -29,7 +28,6 @@ export default {
     ...mapState({
       callCard: state => state.game.round.callCard,
       cardsPlayed: state => state.game.round.cardsPlayed,
-      roundWinner: state => state.game.round.winner,
       isEnded: state => state.game.round.isEnded,
     }),
     ...mapGetters(['getClientIsCzar']),
@@ -38,11 +36,6 @@ export default {
     },
     canBePicked() {
       return this.getClientIsCzar && !this.isEnded;
-    },
-  },
-  methods: {
-    isWinningResponse(res) {
-      return res.playerId === this.roundWinner;
     },
   },
 };

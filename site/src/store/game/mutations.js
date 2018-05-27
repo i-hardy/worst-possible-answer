@@ -57,7 +57,7 @@ export const SOCKET_SEND_ALL_RESPONSES = (state, payload) => {
 };
 
 export const SOCKET_SEND_ROUND_WINNER = (state, payload) => {
-  const winner = JSON.parse(payload);
+  const { winner } = JSON.parse(payload);
   state.round.winner = winner;
 };
 

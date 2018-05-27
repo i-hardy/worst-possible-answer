@@ -1,6 +1,10 @@
 <template>
   <section
-    :class="{ 'response--pickable' : pickable, 'response--winner' : isWinner }"
+    :class="{
+      'response--pickable' : pickable,
+      'response--winner' : isWinner,
+      'response--not-winner' : !isWinner,
+      }"
     class="response"
     @click="czarPick">
     <card
@@ -12,7 +16,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import Card from '@/components/game/card';
 
 export default {
@@ -29,9 +33,13 @@ export default {
       type: Boolean,
       default: false,
     },
-    isWinner: {
-      type: Boolean,
-      default: false,
+  },
+  computed: {
+    ...mapState({
+      roundWinner: state => state.game.round.winner,
+    }),
+    isWinner() {
+      return this.response.playerID === this.roundWinner;
     }
   },
   methods: {
@@ -66,6 +74,9 @@ export default {
   }
   &--winner {
     border-color: $primary-red;
+  }
+  &--not-winner {
+    opacity: 0.5;
   }
 }
 </style>

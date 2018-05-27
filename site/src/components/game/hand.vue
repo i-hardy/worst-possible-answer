@@ -2,19 +2,21 @@
   <div
     :class="{ 'hand__disabled' : disableHand }"
     class="hand unselectable pa-2">
-    <div
-      v-if="ready"
-      class="hand-tip__button">
-      <v-btn
-        color="primary"
-        @click="buttonClick">
-        {{ buttonText }}
-      </v-btn>
-    </div>
-    <div
-      v-else
-      class="hand-tip small-text">
-        {{ handTip }}
+    <div v-if="!isEnded">
+      <div
+        v-if="ready"
+        class="hand-tip__button">
+        <v-btn
+          color="primary"
+          @click="buttonClick">
+          {{ buttonText }}
+        </v-btn>
+      </div>
+      <div
+        v-else
+        class="hand-tip small-text">
+          {{ handTip }}
+      </div>
     </div>
     <div class="cards-wrapper">
       <card
@@ -48,6 +50,7 @@ export default {
       playerID: state => state.player.id,
       responseCount: state => state.game.round.responseCount,
       czarPick: state => state.game.round.czarPick,
+      isEnded: state => state.game.round.isEnded,
     }),
     ...mapGetters(['getPlayerHasPlayed', 'getClientIsCzar']),
     disableHand() {
