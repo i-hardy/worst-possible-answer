@@ -15,6 +15,10 @@ module.exports = (server) => {
     gamePlayer.receiveSocket(socket);
   }
 
+  function gameSockets(id) {
+    return io.sockets.in(id);
+  }
+
   io.on('connection', (client) => {
     let thisGame;
     let game;
@@ -28,21 +32,21 @@ module.exports = (server) => {
     });
 
     client.on('game_start', () => {
-      io.sockets.in(game).emit('startGame');
+      gameSockets(game).emit('startGame');
     });
 
     client.on('chat_message', ({ player, content }) => {
-      io.sockets.in(game).emit('chat_message', JSON.stringify({ player, content }));
+      gameSockets(game).emit('chat_message', JSON.stringify({ player, content }));
     });
 
     client.on('deck_added', ({ deckName }) => {
       const content = `Deck added: ${deckName}`;
-      io.sockets.in(game).emit('chat_message', JSON.stringify({ content }));
+      gameSockets(game).emit('chat_message', JSON.stringify({ content }));
     });
 
     client.on('deck_removed', ({ deckName }) => {
       const content = `Deck removed: ${deckName}`;
-      io.sockets.in(game).emit('chat_message', JSON.stringify({ content }));
+      gameSockets(game).emit('chat_message', JSON.stringify({ content }));
     });
 
     client.on('play_card', ({ playerID, cardID }) => {
