@@ -6,7 +6,8 @@ const GameController = require('./gameController');
 
 const rule = new schedule.RecurrenceRule();
 rule.minute = 59;
-const cleanIdleGames = () => {
+
+function cleanIdleGames() {
   let cleanedCount = 0;
   GameController.gameEngines.forEach((engine) => {
     const now = moment();

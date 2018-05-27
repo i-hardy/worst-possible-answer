@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 class Game {
   constructor(id) {
     this.id = id;
@@ -5,6 +7,7 @@ class Game {
     this.decks = [];
     this.players = [];
     this.chat = [];
+    this.startedAt = moment();
   }
   addDeck(deck) {
     if (this.decks.some(currDeck => currDeck.code === deck.code)) {

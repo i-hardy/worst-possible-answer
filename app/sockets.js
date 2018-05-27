@@ -25,12 +25,13 @@ module.exports = (server) => {
     let thisGame;
     let game;
 
-    socket.on('room', async ({ gameID, player }) => {
+    socket.on('room', ({ gameID, player }) => {
       thisGame = GameController.findGame(gameID);
       game = gameID;
-      await socket.join(gameID);
+      socket.join(gameID);
       if (!thisGame) return;
       newPlayer(thisGame, player, socket);
+      console.log(`Player connected to game ${gameID}`);
     });
 
     socket.on('game_start', () => {
