@@ -1,6 +1,6 @@
 /* eslint no-console: 0, prefer-template: 0 */
-
-const debug = require('debug')('cah-clone:server');
+require('sqreen');
+const debug = require('debug')('worst-possible-answer:server');
 const http = require('http');
 const app = require('./app/app');
 

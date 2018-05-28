@@ -32,6 +32,7 @@
     "serve-static": "^1.13.2",
     "shuffle-array": "^1.0.1",
     "socket.io": "^2.1.0",
+    "sqreen": "^1.18.5",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
