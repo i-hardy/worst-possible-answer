@@ -15,7 +15,6 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'index',
       component: Index,
       children: [
         {

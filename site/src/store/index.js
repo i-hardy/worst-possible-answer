@@ -8,7 +8,8 @@ import messaging from './messaging';
 Vue.use(Vuex);
 
 const persist = new VuexPersistence({
-  storage: window.localStorage
+  storage: window.localStorage,
+  key: 'wpa-persisted',
 });
 
 const store = new Vuex.Store({

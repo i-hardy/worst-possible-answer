@@ -19,7 +19,9 @@ export default {
     SlideLeft,
   },
   mounted() {
-    this.$store.commit('CLEAR_GAME');
+    setTimeout(() => {
+      this.$store.commit('CLEAR_GAME');
+    }, 2000);
   },
 };
 </script>

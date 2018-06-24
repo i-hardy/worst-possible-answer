@@ -63,6 +63,10 @@ body {
   overflow-y: scroll !important;
 }
 
+.no-scroll {
+  overflow: hidden !important;
+}
+
 .band {
   display: flex;
   flex-basis: fit-content;

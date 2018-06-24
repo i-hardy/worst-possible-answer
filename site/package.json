@@ -19,6 +19,7 @@
     "node-sass": "^4.9.0",
     "push.js": "^1.0.5",
     "sass-loader": "^7.0.1",
+    "sass-mq": "^5.0.0",
     "socket.io-client": "^2.1.0",
     "velocity-animate": "^1.5.1",
     "vue": "^2.5.11",

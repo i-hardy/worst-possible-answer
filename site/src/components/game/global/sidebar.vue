@@ -1,7 +1,7 @@
 <template>
   <aside>
     <h1 class="white-text">Worst Possible Answer</h1>
-    <section class="aside--section_two-thirds">
+    <section class="aside__container">
       <chat />
       <sound-controller />
       <player-list />
@@ -31,12 +31,13 @@ aside {
   position: absolute;
   background-color: $medium-teal;
   width: $sidebarwidth;
+  overflow: hidden;
   height: 100%;
   z-index: 100;
 }
 
-.aside--section_two-thirds {
-  max-height: 66%;
+.aside__container {
+  max-height: 90%;
 }
 
 </style>
