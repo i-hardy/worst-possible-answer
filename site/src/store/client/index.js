@@ -10,6 +10,7 @@ const messaging = {
       show: false,
       content: '',
     },
+    showSidebar: true,
   },
   mutations,
 };

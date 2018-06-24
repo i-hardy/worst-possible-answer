@@ -1,6 +1,7 @@
 <template>
   <section class="full-height">
     <sidebar />
+    <sidebar-toggle />
     <section class="content content__with-sidebar">
       <router-view style="width:100%;" />
     </section>
@@ -17,11 +18,13 @@
 import { mapState } from 'vuex';
 import Push from 'push.js';
 import Sidebar from '@/components/game/global/sidebar';
+import SidebarToggle from '@/components/game/global/sidebarToggle';
 
 export default {
   name: 'Game',
   components: {
     Sidebar,
+    SidebarToggle
   },
   sockets: {
     startGame() {
@@ -34,8 +37,8 @@ export default {
     ...mapState({
       gameID: state => state.game.gameID,
       player: state => state.player,
-      toastMessage: state => state.messaging.toastMessage,
-      nudgeMessage: state => state.messaging.nudgeMessage,
+      toastMessage: state => state.client.toastMessage,
+      nudgeMessage: state => state.client.nudgeMessage,
     }),
   },
   watch: {
@@ -76,7 +79,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../assets/scss/variables';
+@import '../assets/scss/imports';
 
 .content {
   height: 100%;
@@ -84,6 +87,10 @@ export default {
   &__with-sidebar {
     margin-left: $sidebarwidth;
     width: calc(100% - #{$sidebarwidth});
+    @include mq($from: mobile, $until: tablet) {
+      margin-left: 0;
+      width: 100%;
+    }
   }
 }
 

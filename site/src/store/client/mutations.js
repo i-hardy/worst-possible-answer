@@ -9,3 +9,7 @@ export const SEND_TOAST = (state, message) => {
   state.toastMessage.content = message;
   state.toastMessage.show = true;
 };
+
+export const TOGGLE_SIDEBAR = (state) => {
+  state.showSidebar = !state.showSidebar;
+};

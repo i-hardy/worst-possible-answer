@@ -1,6 +1,6 @@
 <template>
   <aside>
-    <h1 class="white-text">Worst Possible Answer</h1>
+    <h1 class="white-text display-ib">Worst Possible Answer</h1>
     <section class="aside__container">
       <chat />
       <sound-controller />
@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../../assets/scss/variables';
+@import '../../../assets/scss/imports';
 
 aside {
   position: absolute;
@@ -34,10 +34,15 @@ aside {
   overflow: hidden;
   height: 100%;
   z-index: 100;
+  @include mq($from: mobile, $until: tablet) {
+    width: $sidebarwidth-mobile;
+  }
 }
 
-.aside__container {
-  max-height: 90%;
+.aside {
+  &__container {
+    max-height: 90%;
+  }
 }
 
 </style>

@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import VuexPersistence from 'vuex-persist';
 import game from './game';
 import player from './player';
-import messaging from './messaging';
+import client from './client';
 
 Vue.use(Vuex);
 
@@ -16,7 +16,7 @@ const store = new Vuex.Store({
   modules: {
     game,
     player,
-    messaging,
+    client,
   },
   plugins: [persist.plugin],
 });
