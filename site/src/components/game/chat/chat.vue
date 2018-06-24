@@ -77,6 +77,6 @@ export default {
 
 .chat-container {
   overflow: auto;
+  font-size: 1rem;
 }
-
 </style>

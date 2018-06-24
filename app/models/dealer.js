@@ -12,22 +12,10 @@ class Dealer {
     this.responses = shuffle(responses, { copy: true });
   }
   pickCall() {
-    const toPick = this.calls.find(card => !card.isDealt);
-    try {
-      toPick.isDealt = true;
-      return toPick;
-    } catch (error) {
-      throw error;
-    }
+    return this.calls.shift();
   }
   pickResponse() {
-    const toPick = this.responses.find(card => !card.isDealt);
-    try {
-      toPick.isDealt = true;
-      return toPick;
-    } catch (error) {
-      throw error;
-    }
+    return this.responses.shift();
   }
 }
 

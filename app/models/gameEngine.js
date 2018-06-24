@@ -1,6 +1,6 @@
 const moment = require('moment');
 const Round = require('./round');
-const timings = require('./timings');
+const config = require('./config');
 
 class GameEngine {
   constructor(game, io, dealer, RoundClass = Round) {
@@ -41,7 +41,7 @@ class GameEngine {
       this.sendToPlayers(message, packet);
       setTimeout(
         this.subsequentRound.bind(this, cardsToDeal, playersToDealTo),
-        timings.gap * 1000,
+        config.gap * 1000,
       );
     } else {
       this.sendToPlayers('send_winner', { winner: this.winner().id });
@@ -61,7 +61,7 @@ class GameEngine {
   }
   firstRound() {
     this._passCardsToDealer();
-    this._dealCards(5, this.game.players);
+    this._dealCards(config.handSize, this.game.players);
     this.pickCzar();
     this._createRound();
     this.activeRound.wait();

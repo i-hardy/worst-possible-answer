@@ -2,7 +2,7 @@
   <section
     :class="{
       'response--pickable' : pickable,
-      'response--winner' : isWinner,
+      'response--winner' : isWinner || clientPick,
       'response--not-winner' : roundWinner && !isWinner,
       }"
     class="response"
@@ -23,6 +23,11 @@ export default {
   name: 'Response',
   components: {
     Card,
+  },
+  data() {
+    return {
+      clientPick: false,
+    }
   },
   props: {
     response: {
@@ -46,6 +51,7 @@ export default {
     ...mapMutations(['SET_CZAR_PICK']),
     czarPick() {
       if (this.pickable) {
+        this.clientPick = true;
         this.SET_CZAR_PICK(this.response);
       }
     },
@@ -73,6 +79,7 @@ export default {
     pointer-events: all;
   }
   &--winner {
+    border-width: 2px;
     border-color: $primary-red;
   }
   &--not-winner {

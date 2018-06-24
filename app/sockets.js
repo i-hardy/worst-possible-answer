@@ -15,10 +15,31 @@ module.exports = (server) => {
     }));
   }
 
+  function handleClientRefresh(game, player) {
+    const gamePlayer = game.disconnectedPlayers.find(p => p.id === player.id);
+    if (gamePlayer) {
+      game.restorePlayer(gamePlayer.id);
+    }
+    return gamePlayer;
+  }
+
   function newPlayer(game, player, socket) {
-    const gamePlayer = game.players.find(p => p.id === player.id);
+    let gamePlayer = game.players.find(p => p.id === player.id);
+    if (!gamePlayer) {
+      gamePlayer = handleClientRefresh(game, player);
+    }
     updatePlayers(game);
+    if (!gamePlayer) return;
     gamePlayer.receiveSocket(socket);
+  }
+
+  function kickPlayer(game, playerID) {
+    game.removePlayer(playerID);
+    const engine = GameController.findEngine(game);
+    if (engine && engine.activeRound) {
+      engine.activeRound.playerLeft(playerID);
+    }
+    updatePlayers(game);
   }
 
   io.on('connection', (socket) => {
@@ -64,15 +85,17 @@ module.exports = (server) => {
       activeRound.czarPick({ playerID });
     });
 
-    socket.on('disconnect', () => {
+    socket.on('kick_player', (playerID) => {
       if (thisGame) {
-        const disconnecter = thisGame.players.find(p => p.socket === socket);
-        thisGame.removePlayer(disconnecter.id);
-        const engine = GameController.findEngine(thisGame);
-        if (engine && engine.activeRound) {
-          engine.activeRound.playerLeft(disconnecter.id);
-        }
-        updatePlayers(thisGame);
+        kickPlayer(thisGame, playerID);
+      }
+    });
+
+    socket.on('disconnect', () => {
+      if (!thisGame) return;
+      const disconnecter = thisGame.players.find(p => p.socket === socket);
+      if (disconnecter) {
+        kickPlayer(thisGame, disconnecter.id);
       }
     });
   });

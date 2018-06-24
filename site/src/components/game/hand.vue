@@ -18,7 +18,12 @@
           {{ handTip }}
       </div>
     </div>
-    <div class="cards-wrapper">
+    <div
+      class="cards-wrapper"
+      :class="{ 'cards-wrapper--dragging' : isDragging }"
+      v-dragscroll.x
+      @mousedown="toggleDrag"
+      @mouseup="toggleDrag">
       <card
         v-for="(card, index) in hand"
         :key="index"
@@ -32,6 +37,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations } from 'vuex';
+import { dragscroll } from 'vue-dragscroll';
 import Card from '@/components/game/card';
 
 export default {
@@ -39,9 +45,13 @@ export default {
   components: {
     Card,
   },
+  directives: {
+    dragscroll,
+  },
   data() {
     return {
       selectedCards: [],
+      isDragging: false,
     }
   },
   computed: {
@@ -79,10 +89,10 @@ export default {
       }
     },
     pickCard(card) {
-      this.preventOverflow();
-      if (this.selectedCards.includes(card)) {
-        this.selectedCards = this.selectedCards.filter(c => c !== card);
+      if (this.selectedCards.find(c => c.id === card.id)) {
+        this.selectedCards = this.selectedCards.filter(c => c.id !== card.id);
       } else {
+        this.preventOverflow();
         this.selectedCards.push(card);
       }
     },
@@ -111,6 +121,9 @@ export default {
         this.playResponse();
       }
     },
+    toggleDrag() {
+      this.isDragging = !this.isDragging;
+    }
   },
   watch: {
     hand() {
@@ -155,11 +168,16 @@ export default {
   }
 }
 .cards-wrapper {
+  cursor: grab;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  overflow-x: scroll;
+  grid-template-columns: repeat(8, minmax(150px, 180px));
   grid-template-rows: 100%;
   grid-column-gap: 2rem;
   grid-row-gap: 1rem;
   height: 100%;
+  &--dragging {
+    cursor: grabbing;
+  }
 }
 </style>

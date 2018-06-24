@@ -51,6 +51,7 @@ export default {
   height: 90%;
   text-align: left;
   border-radius: 2px;
+  font-size: 0.9rem;
   &__playable {
     cursor: pointer;
   }

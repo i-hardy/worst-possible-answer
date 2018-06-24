@@ -55,5 +55,6 @@ export default {
 .call-card {
   background: $black;
   text-align: left;
+  font-size: 0.9rem;
 }
 </style>

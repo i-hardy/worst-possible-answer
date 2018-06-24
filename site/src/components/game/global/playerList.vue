@@ -14,6 +14,16 @@
             <v-list-tile-title v-text="player.name" />
             <v-list-tile-sub-title v-text="`${player.points} points`" />
           </v-list-tile-content>
+          <v-btn
+            absolute
+            fab
+            small
+            right
+            v-if="isOwner"
+            color="primary"
+            @click="kickPlayer(player)">
+            <v-icon>mdi-account-remove</v-icon>
+          </v-btn>
         </v-list-tile>
         <v-divider
           v-if="index + 1 < players.length"
@@ -35,6 +45,7 @@ export default {
   computed: {
     ...mapState({
       players: state => state.game.players,
+      isOwner: state => state.player.isOwner,
     }),
   },
   methods: {
@@ -42,6 +53,11 @@ export default {
       /* eslint-disable */
       return require(`../../../assets/images/playerIcons/${name}.svg`);
     },
+    kickPlayer(player) {
+      if (this.isOwner) {
+        this.$socket.emit('kick_player', player.id);
+      }
+    }
   }
 };
 </script>

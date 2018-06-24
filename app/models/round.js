@@ -1,4 +1,4 @@
-const timings = require('./timings');
+const config = require('./config');
 
 class Round {
   constructor(callCard, czar, players, doneFunction, sendFunction) {
@@ -38,7 +38,7 @@ class Round {
     return this.nonCzarPlayers()
       .filter(player => !playedResponses.some(response => response.playerID === player.id));
   }
-  wait(pollTime = timings.first) {
+  wait(pollTime = config.first) {
     this.pollInterval = setInterval(this
       .checkIsReady.bind(this, pollTime), 1000);
   }
@@ -56,7 +56,7 @@ class Round {
     if (!this.nudged) {
       this.nudgeIdlePlayers();
       this.pollCount = 0;
-      this.wait(timings.second);
+      this.wait(config.second);
     } else {
       this.skipIdlePlayers();
     }
@@ -84,7 +84,7 @@ class Round {
   checkForCzar() {
     if (this.winningResponse) {
       this.roundHadWinner();
-    } else if (this.pollCount === timings.first) {
+    } else if (this.pollCount === config.first) {
       this.czarTimedOut();
     }
     this.pollCount += 1;

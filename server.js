@@ -1,5 +1,7 @@
 /* eslint no-console: 0, prefer-template: 0 */
-require('sqreen');
+if (process.env.NODE_ENV === 'production') {
+  require('sqreen');
+}
 const debug = require('debug')('worst-possible-answer:server');
 const http = require('http');
 const app = require('./app/app');

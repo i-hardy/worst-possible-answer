@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "circular-json": "^0.5.4",
     "clipboard": "^2.0.1",
     "node-sass": "^4.9.0",
     "push.js": "^1.0.5",
@@ -22,10 +23,12 @@
     "velocity-animate": "^1.5.1",
     "vue": "^2.5.11",
     "vue-chat-scroll": "^1.2.1",
+    "vue-dragscroll": "^1.4.2",
     "vue-router": "^3.0.1",
     "vue-socket.io-extended": "^2.0.2",
     "vuetify": "^1.0.18",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vuex-persist": "^1.2.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

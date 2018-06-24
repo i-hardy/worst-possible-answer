@@ -6,6 +6,7 @@ class Game {
     this.isRunning = false;
     this.decks = [];
     this.players = [];
+    this.disconnectedPlayers = [];
     this.chat = [];
     this.startedAt = moment();
   }
@@ -25,7 +26,13 @@ class Game {
     this.players.push(player);
   }
   removePlayer(playerID) {
-    this.players = this.players.filter(player => player.id !== playerID);
+    const disconnected = this.players.find(player => player.id === playerID);
+    this.players.splice(this.players.indexOf(disconnected), 1);
+    this.disconnectedPlayers.push(disconnected);
+  }
+  restorePlayer(playerID) {
+    const lazarus = this.disconnectedPlayers.find(player => player.id === playerID);
+    this.players.push(lazarus);
   }
   sanitizedPlayers() {
     return this.players.map((player) => {
